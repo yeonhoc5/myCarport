@@ -9,23 +9,25 @@
 /* Begin PBXBuildFile section */
 		1AF6C2F729110E720046DC6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2F629110E720046DC6B /* AppDelegate.swift */; };
 		1AF6C2F929110E720046DC6B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2F829110E720046DC6B /* SceneDelegate.swift */; };
-		1AF6C2FB29110E720046DC6B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2FA29110E720046DC6B /* ViewController.swift */; };
+		1AF6C2FB29110E720046DC6B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2FA29110E720046DC6B /* HomeViewController.swift */; };
 		1AF6C2FE29110E720046DC6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AF6C2FC29110E720046DC6B /* Main.storyboard */; };
 		1AF6C30129110E720046DC6B /* myCarport.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2FF29110E720046DC6B /* myCarport.xcdatamodeld */; };
 		1AF6C30329110E730046DC6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AF6C30229110E730046DC6B /* Assets.xcassets */; };
 		1AF6C30629110E730046DC6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AF6C30429110E730046DC6B /* LaunchScreen.storyboard */; };
+		1AF6C312291134350046DC6B /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C311291134350046DC6B /* HomeTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1AF6C2F329110E720046DC6B /* myCarport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myCarport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AF6C2F629110E720046DC6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AF6C2F829110E720046DC6B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1AF6C2FA29110E720046DC6B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1AF6C2FA29110E720046DC6B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1AF6C2FD29110E720046DC6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1AF6C30029110E720046DC6B /* myCarport.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = myCarport.xcdatamodel; sourceTree = "<group>"; };
 		1AF6C30229110E730046DC6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1AF6C30529110E730046DC6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1AF6C30729110E730046DC6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1AF6C311291134350046DC6B /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +62,7 @@
 			children = (
 				1AF6C2F629110E720046DC6B /* AppDelegate.swift */,
 				1AF6C2F829110E720046DC6B /* SceneDelegate.swift */,
-				1AF6C2FA29110E720046DC6B /* ViewController.swift */,
+				1AF6C30D291117BF0046DC6B /* Scenes */,
 				1AF6C2FC29110E720046DC6B /* Main.storyboard */,
 				1AF6C30229110E730046DC6B /* Assets.xcassets */,
 				1AF6C30429110E730046DC6B /* LaunchScreen.storyboard */,
@@ -68,6 +70,15 @@
 				1AF6C2FF29110E720046DC6B /* myCarport.xcdatamodeld */,
 			);
 			path = myCarport;
+			sourceTree = "<group>";
+		};
+		1AF6C30D291117BF0046DC6B /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				1AF6C2FA29110E720046DC6B /* HomeViewController.swift */,
+				1AF6C311291134350046DC6B /* HomeTableViewCell.swift */,
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,7 +152,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AF6C2FB29110E720046DC6B /* ViewController.swift in Sources */,
+				1AF6C2FB29110E720046DC6B /* HomeViewController.swift in Sources */,
+				1AF6C312291134350046DC6B /* HomeTableViewCell.swift in Sources */,
 				1AF6C2F729110E720046DC6B /* AppDelegate.swift in Sources */,
 				1AF6C2F929110E720046DC6B /* SceneDelegate.swift in Sources */,
 				1AF6C30129110E720046DC6B /* myCarport.xcdatamodeld in Sources */,
