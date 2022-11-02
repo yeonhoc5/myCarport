@@ -9,7 +9,9 @@ import UIKit
 
 class HomeTableViewCell: UITableViewCell {
 
-    
+    @IBOutlet var lblItemName: UILabel!
+    @IBOutlet var lblCycle: UILabel!
+    @IBOutlet var lblLastDate: UILabel!
     
     override var frame: CGRect {
         get {
@@ -22,7 +24,6 @@ class HomeTableViewCell: UITableViewCell {
             frame.size.width -= 2 * inset
             super.frame = frame
         }
-    }
-
+    }    
     
 }

@@ -15,6 +15,8 @@
 		1AF6C30329110E730046DC6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AF6C30229110E730046DC6B /* Assets.xcassets */; };
 		1AF6C30629110E730046DC6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AF6C30429110E730046DC6B /* LaunchScreen.storyboard */; };
 		1AF6C312291134350046DC6B /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C311291134350046DC6B /* HomeTableViewCell.swift */; };
+		1AF6C3142911FCD30046DC6B /* CarInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C3132911FCD30046DC6B /* CarInfo.swift */; };
+		1AF6C317291243530046DC6B /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C316291243530046DC6B /* HomeCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		1AF6C30529110E730046DC6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1AF6C30729110E730046DC6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AF6C311291134350046DC6B /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		1AF6C3132911FCD30046DC6B /* CarInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarInfo.swift; sourceTree = "<group>"; };
+		1AF6C316291243530046DC6B /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,7 @@
 				1AF6C2F629110E720046DC6B /* AppDelegate.swift */,
 				1AF6C2F829110E720046DC6B /* SceneDelegate.swift */,
 				1AF6C30D291117BF0046DC6B /* Scenes */,
+				1AF6C3152911FCDA0046DC6B /* Data */,
 				1AF6C2FC29110E720046DC6B /* Main.storyboard */,
 				1AF6C30229110E730046DC6B /* Assets.xcassets */,
 				1AF6C30429110E730046DC6B /* LaunchScreen.storyboard */,
@@ -77,8 +82,17 @@
 			children = (
 				1AF6C2FA29110E720046DC6B /* HomeViewController.swift */,
 				1AF6C311291134350046DC6B /* HomeTableViewCell.swift */,
+				1AF6C316291243530046DC6B /* HomeCollectionViewCell.swift */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		1AF6C3152911FCDA0046DC6B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1AF6C3132911FCD30046DC6B /* CarInfo.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,10 +166,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AF6C317291243530046DC6B /* HomeCollectionViewCell.swift in Sources */,
 				1AF6C2FB29110E720046DC6B /* HomeViewController.swift in Sources */,
 				1AF6C312291134350046DC6B /* HomeTableViewCell.swift in Sources */,
 				1AF6C2F729110E720046DC6B /* AppDelegate.swift in Sources */,
 				1AF6C2F929110E720046DC6B /* SceneDelegate.swift in Sources */,
+				1AF6C3142911FCD30046DC6B /* CarInfo.swift in Sources */,
 				1AF6C30129110E720046DC6B /* myCarport.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
