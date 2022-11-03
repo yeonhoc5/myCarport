@@ -23,6 +23,9 @@ class HomeViewController: UIViewController {
     @IBOutlet var lblCarMileage: UILabel!
     @IBOutlet var btnRenew: UIButton!
     
+    var selectedCellNum: Int = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configView()
@@ -185,7 +188,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 // MARK: - [Extension] Config CollectionView
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -195,34 +198,36 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         return myCarList.count + 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: indexPath.row == myCarList.count ? 30:80, height: 30)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell", for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
-        cell.backgroundColor = .systemTeal.withAlphaComponent(0.8)
-        cell.layer.cornerRadius = indexPath.row == myCarList.count ? cell.frame.height / 2:15
-        cell.lblCarName.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        if indexPath.row == myCarList.count {
-            let imageView = UIImageView(image: UIImage(systemName: "plus"))
-            imageView.tintColor = .white
-            imageView.scalesLargeContentImage = true
-            
-            cell.addSubview(imageView)
-            cell.lblCarName.text = ""
-//            imageView.center = cell.center
+        cell.backgroundColor = selectedCellNum == indexPath.row ? .systemTeal.withAlphaComponent(0.8):.systemGray4
+        cell.layer.cornerRadius = 10
+        if indexPath.row == 2 {
+            cell.settingCell(name: "+")
         } else {
-            cell.lblCarName.text = myCarList[indexPath.row].carName
+            cell.settingCell(name: myCarList[indexPath.row].carName)
         }
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCellNum = indexPath.row
+        collectionView.reloadData()
+    }
     
     
+}
+
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+ 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: indexPath.row == myCarList.count ? 30:70, height: 30)
+    }
+ 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+
     
 }

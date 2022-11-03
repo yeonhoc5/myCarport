@@ -9,8 +9,29 @@ import UIKit
 
 class HomeCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet var lblCarName: UILabel!
-    
-    
+    lazy var lblCarName: UILabel! = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 13)
+        label.textAlignment = .center
+        return label
+    }()
+
+    func settingCell(name: String) {
+        addSubview(lblCarName)
+        lblCarName.text = name
+        lblCarName.sizeToFit()
+        
+        let lblWidth = lblCarName.frame.width
+        self.frame.size.width = lblWidth + 20
+        
+        lblCarName.translatesAutoresizingMaskIntoConstraints = false
+        let centerX: NSLayoutConstraint
+        centerX = lblCarName.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        let centerY: NSLayoutConstraint
+        centerY = lblCarName.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        
+        centerX.isActive = true
+        centerY.isActive = true
+    }
     
 }
