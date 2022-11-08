@@ -50,9 +50,8 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Fv-Yj-4jx">
                                                     <rect key="frame" x="242.33333333333334" y="5" width="97.666666666666657" height="62"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7천 / 1만" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aF-bb-9JM">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7천" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aF-bb-9JM">
                                                             <rect key="frame" x="0.0" y="0.0" width="97.666666666666671" height="46"/>
-                                                            <color key="backgroundColor" systemColor="systemGray3Color"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="gJB-2j-y1k"/>
                                                             </constraints>
@@ -87,6 +86,7 @@
                                             <outlet property="lblCycle" destination="7aF-bb-9JM" id="Ijn-F9-079"/>
                                             <outlet property="lblItemName" destination="2Wd-qW-27g" id="E0X-xt-bfG"/>
                                             <outlet property="lblLastDate" destination="KzW-sD-vb4" id="u6n-fF-9fx"/>
+                                            <outlet property="viewGraphStick" destination="ml1-gN-nzV" id="TKI-ox-gfh"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -95,10 +95,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="300"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c4I-jj-zlA">
-                                        <rect key="frame" x="30" y="134" width="330" height="136"/>
+                                        <rect key="frame" x="30" y="125" width="330" height="145"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="gzF-RO-m3C">
-                                                <rect key="frame" x="57.333333333333329" y="23" width="215.33333333333337" height="90"/>
+                                                <rect key="frame" x="57.333333333333329" y="27.666666666666657" width="215.33333333333337" height="90"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="oUB-es-IuL">
                                                         <rect key="frame" x="0.0" y="0.0" width="215.33333333333334" height="20"/>
@@ -165,6 +165,9 @@
                                                                             <imageReference key="image" image="arrow.clockwise" catalog="system" symbolScale="small"/>
                                                                             <color key="baseForegroundColor" systemColor="systemTealColor"/>
                                                                         </buttonConfiguration>
+                                                                        <connections>
+                                                                            <action selector="tabBtnRenew:" destination="BYZ-38-t0r" eventType="touchUpInside" id="s2F-Ng-RNA"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
@@ -184,12 +187,12 @@
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eN5-qj-zOe">
-                                        <rect key="frame" x="0.0" y="99" width="390" height="30"/>
+                                        <rect key="frame" x="0.0" y="90" width="390" height="30"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="tSI-Oj-wQP"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cyX-oE-gmp">
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cyX-oE-gmp">
                                             <size key="itemSize" width="128" height="128"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -197,7 +200,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeCollectionViewCell" id="LTO-KN-mra" customClass="HomeCollectionViewCell" customModule="myCarport" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="116" height="31"/>
+                                                <rect key="frame" x="0.0" y="-0.66666666666666663" width="116" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="4Sy-O8-ktb">
                                                     <rect key="frame" x="0.0" y="0.0" width="116" height="31"/>
@@ -218,7 +221,7 @@
                                     <constraint firstItem="eN5-qj-zOe" firstAttribute="centerX" secondItem="c4I-jj-zlA" secondAttribute="centerX" id="ele-pD-BFi"/>
                                     <constraint firstItem="c4I-jj-zlA" firstAttribute="top" secondItem="eN5-qj-zOe" secondAttribute="bottom" constant="5" id="k7Y-KB-tsx"/>
                                     <constraint firstAttribute="height" constant="300" id="qIX-6O-nUM"/>
-                                    <constraint firstItem="eN5-qj-zOe" firstAttribute="top" secondItem="D2C-jh-MLo" secondAttribute="top" constant="99" id="rdy-4i-uut"/>
+                                    <constraint firstItem="eN5-qj-zOe" firstAttribute="top" secondItem="D2C-jh-MLo" secondAttribute="top" constant="90" id="rdy-4i-uut"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -241,13 +244,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="btnRenew" destination="ZkC-UJ-M4s" id="Zvj-ze-2kR"/>
-                        <outlet property="carInfoView" destination="c4I-jj-zlA" id="yGg-lP-1go"/>
                         <outlet property="collectionView" destination="eN5-qj-zOe" id="AUw-hP-Efm"/>
                         <outlet property="lblCarMileage" destination="83T-a6-F1E" id="tIx-wy-Gdl"/>
                         <outlet property="lblCarNumber" destination="rUo-H0-yV1" id="CJa-jc-nnf"/>
                         <outlet property="lblCarType" destination="t0u-qa-tRQ" id="ge9-Nz-wTI"/>
                         <outlet property="tableView" destination="kvi-x0-TZF" id="38x-y8-RZV"/>
                         <outlet property="viewBackground" destination="D2C-jh-MLo" id="Gjh-KZ-a5K"/>
+                        <outlet property="viewCarInfo" destination="c4I-jj-zlA" id="yGg-lP-1go"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

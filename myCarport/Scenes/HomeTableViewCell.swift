@@ -12,6 +12,7 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet var lblItemName: UILabel!
     @IBOutlet var lblCycle: UILabel!
     @IBOutlet var lblLastDate: UILabel!
+    @IBOutlet var viewGraphStick: UIView!
     
     override var frame: CGRect {
         get {

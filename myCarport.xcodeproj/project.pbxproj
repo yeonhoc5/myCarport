@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AAC5EEC291A41FF001CB9E2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1AAC5EEB291A41FF001CB9E2 /* SnapKit */; };
+		1AAC5EEF291A49DF001CB9E2 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5EEE291A49DF001CB9E2 /* CustomLabel.swift */; };
 		1AF6C2F729110E720046DC6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2F629110E720046DC6B /* AppDelegate.swift */; };
 		1AF6C2F929110E720046DC6B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2F829110E720046DC6B /* SceneDelegate.swift */; };
 		1AF6C2FB29110E720046DC6B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2FA29110E720046DC6B /* HomeViewController.swift */; };
@@ -20,10 +22,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1AAC5EEE291A49DF001CB9E2 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		1AF6C2F329110E720046DC6B /* myCarport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myCarport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AF6C2F629110E720046DC6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AF6C2F829110E720046DC6B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1AF6C2FA29110E720046DC6B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1AF6C2FA29110E720046DC6B /* HomeViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		1AF6C2FD29110E720046DC6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1AF6C30029110E720046DC6B /* myCarport.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = myCarport.xcdatamodel; sourceTree = "<group>"; };
 		1AF6C30229110E730046DC6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -39,12 +42,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AAC5EEC291A41FF001CB9E2 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AAC5EED291A49A8001CB9E2 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				1AAC5EEE291A49DF001CB9E2 /* CustomLabel.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		1AF6C2EA29110E720046DC6B = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +80,7 @@
 				1AF6C2F829110E720046DC6B /* SceneDelegate.swift */,
 				1AF6C30D291117BF0046DC6B /* Scenes */,
 				1AF6C3152911FCDA0046DC6B /* Data */,
+				1AAC5EED291A49A8001CB9E2 /* CustomView */,
 				1AF6C2FC29110E720046DC6B /* Main.storyboard */,
 				1AF6C30229110E730046DC6B /* Assets.xcassets */,
 				1AF6C30429110E730046DC6B /* LaunchScreen.storyboard */,
@@ -111,6 +124,9 @@
 			dependencies = (
 			);
 			name = myCarport;
+			packageProductDependencies = (
+				1AAC5EEB291A41FF001CB9E2 /* SnapKit */,
+			);
 			productName = myCarport;
 			productReference = 1AF6C2F329110E720046DC6B /* myCarport.app */;
 			productType = "com.apple.product-type.application";
@@ -139,6 +155,9 @@
 				Base,
 			);
 			mainGroup = 1AF6C2EA29110E720046DC6B;
+			packageReferences = (
+				1AAC5EEA291A41FF001CB9E2 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 1AF6C2F429110E720046DC6B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -171,6 +190,7 @@
 				1AF6C312291134350046DC6B /* HomeTableViewCell.swift in Sources */,
 				1AF6C2F729110E720046DC6B /* AppDelegate.swift in Sources */,
 				1AF6C2F929110E720046DC6B /* SceneDelegate.swift in Sources */,
+				1AAC5EEF291A49DF001CB9E2 /* CustomLabel.swift in Sources */,
 				1AF6C3142911FCD30046DC6B /* CarInfo.swift in Sources */,
 				1AF6C30129110E720046DC6B /* myCarport.xcdatamodeld in Sources */,
 			);
@@ -390,6 +410,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1AAC5EEA291A41FF001CB9E2 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1AAC5EEB291A41FF001CB9E2 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1AAC5EEA291A41FF001CB9E2 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		1AF6C2FF29110E720046DC6B /* myCarport.xcdatamodeld */ = {
