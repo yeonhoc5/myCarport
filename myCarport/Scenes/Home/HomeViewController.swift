@@ -10,7 +10,7 @@ import SnapKit
 
 
 class HomeViewController: UIViewController {
-
+// MARK: - 1. Properties & Outlets
     // subView1
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
@@ -29,29 +29,31 @@ class HomeViewController: UIViewController {
         }
     }
     
-    //viewdidLoad
+//MARK: - 2. [View Did Load] view setting
     override func viewDidLoad() {
         super.viewDidLoad()
         configView()
         configTableView()
         configCollectionView()
         configCarInfoView(carNum: 0)
+        print(btnRenew.frame.height)
     }
     
-    
+//MARK: - 3.View Functions
+    // 기본뷰세팅
     func configView() {
         setNavigation()
         setTopBackgroundView()
         setMainInfoView()
         setBtnRenew()
     }
-    
+    // 테이블뷰세팅
     func configTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
     }
-    
+    // 콜렉션뷰세팅
     func configCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -59,17 +61,14 @@ class HomeViewController: UIViewController {
         collectionView.backgroundColor = .systemGray6
         collectionView.showsHorizontalScrollIndicator = false
     }
-    
+    // 데이터세팅
     func configCarInfoView(carNum: Int) {
         let selectedCar = myCarList[carNum]
         lblCarNumber.text = selectedCar.carNumber
         lblCarType.text = "\(selectedCar.typeFuel == .gasoline ? "가솔린":"디젤") (\(selectedCar.typeShift == .Auto ? "오토":"스틱"))"
         lblCarMileage.text = "\(selectedCar.mileage) km"
-    
     }
-    
-    
-    
+    // 주행거리 갱신버튼 알럿
     @IBAction func tabBtnRenew(_ sender: UIButton) {
         let alert = UIAlertController(title: "주행거리를 갱신합니다.", message: nil, preferredStyle: .alert)
         alert.addTextField{
@@ -84,18 +83,14 @@ class HomeViewController: UIViewController {
                     self.configCarInfoView(carNum: self.selectedCellNum)
                 }
             }
-            
         }))
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-        
         self.present(alert, animated: true)
     }
-    
-
 }
 
 
-// MARK: - [Extension] Config View
+// MARK: - 4. [Extension] Config View
 extension HomeViewController {
     func setNavigation() {
         // title Customizing
@@ -127,7 +122,7 @@ extension HomeViewController {
     
     func setTopBackgroundView() {
         viewBackground.backgroundColor = .systemGray6
-        viewBackground.layer.cornerRadius = 30
+        viewBackground.layer.cornerRadius = 10
         // 상단 백그라운드 그림자 효과
         viewBackground.layer.shadowColor = UIColor.systemGray.cgColor
         viewBackground.layer.shadowRadius = 1.0
@@ -141,17 +136,16 @@ extension HomeViewController {
     }
     
     func setBtnRenew() {
-        btnRenew.layer.frame.size = CGSize(width: 20, height: 20)
-        
-        btnRenew.clipsToBounds = true
+//        btnRenew.layer.frame.size = CGSize(width: 20, height: 20)
         btnRenew.layer.cornerRadius = btnRenew.frame.height / 2 - 1
+        btnRenew.clipsToBounds = true
         let configurations = UIImage.SymbolConfiguration(pointSize: 10, weight: .heavy)
         btnRenew.setImage(UIImage(systemName: "arrow.counterclockwise", withConfiguration: configurations), for: .normal)
-        btnRenew.backgroundColor = btnRenew.isHighlighted ? .orange:.white
+//        btnRenew.backgroundColor = btnRenew.isHighlighted ? .orange:.white
     }
 }
 
-// MARK: - [Extension] Config TableView
+// MARK: - 5. [Extension] Config TableView
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     // 섹션 정보
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -196,7 +190,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-// MARK: - [Extension] Config CollectionView
+// MARK: - 6. [Extension] Config CollectionView
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

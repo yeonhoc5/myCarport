@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		1AAC5EEC291A41FF001CB9E2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1AAC5EEB291A41FF001CB9E2 /* SnapKit */; };
 		1AAC5EEF291A49DF001CB9E2 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5EEE291A49DF001CB9E2 /* CustomLabel.swift */; };
+		1AAC5EF7291B7EB3001CB9E2 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5EF6291B7EB3001CB9E2 /* SettingViewController.swift */; };
+		1AAC5EFB291B7F51001CB9E2 /* SignAndLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5EFA291B7F51001CB9E2 /* SignAndLoginViewController.swift */; };
+		1AAC5EFD291B831F001CB9E2 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5EFC291B831F001CB9E2 /* ItemDetailViewController.swift */; };
+		1AAC5EFF291B833A001CB9E2 /* InsuranceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5EFE291B833A001CB9E2 /* InsuranceDetailViewController.swift */; };
+		1AAC5F02291B8378001CB9E2 /* InsuranceEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5F01291B8378001CB9E2 /* InsuranceEditViewController.swift */; };
+		1AAC5F04291B8390001CB9E2 /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5F03291B8390001CB9E2 /* AddCarViewController.swift */; };
+		1AAC5F11291BC3FA001CB9E2 /* InsuranceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5F10291BC3FA001CB9E2 /* InsuranceCell.swift */; };
+		1AAC5F13291BC47D001CB9E2 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5F12291BC47D001CB9E2 /* SettingCell.swift */; };
+		1AAC5F15291BC4DA001CB9E2 /* ItemDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5F14291BC4DA001CB9E2 /* ItemDetailCell.swift */; };
 		1AF6C2F729110E720046DC6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2F629110E720046DC6B /* AppDelegate.swift */; };
 		1AF6C2F929110E720046DC6B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2F829110E720046DC6B /* SceneDelegate.swift */; };
 		1AF6C2FB29110E720046DC6B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2FA29110E720046DC6B /* HomeViewController.swift */; };
@@ -23,6 +32,15 @@
 
 /* Begin PBXFileReference section */
 		1AAC5EEE291A49DF001CB9E2 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		1AAC5EF6291B7EB3001CB9E2 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		1AAC5EFA291B7F51001CB9E2 /* SignAndLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignAndLoginViewController.swift; sourceTree = "<group>"; };
+		1AAC5EFC291B831F001CB9E2 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
+		1AAC5EFE291B833A001CB9E2 /* InsuranceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceDetailViewController.swift; sourceTree = "<group>"; };
+		1AAC5F01291B8378001CB9E2 /* InsuranceEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceEditViewController.swift; sourceTree = "<group>"; };
+		1AAC5F03291B8390001CB9E2 /* AddCarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
+		1AAC5F10291BC3FA001CB9E2 /* InsuranceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceCell.swift; sourceTree = "<group>"; };
+		1AAC5F12291BC47D001CB9E2 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		1AAC5F14291BC4DA001CB9E2 /* ItemDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailCell.swift; sourceTree = "<group>"; };
 		1AF6C2F329110E720046DC6B /* myCarport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myCarport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AF6C2F629110E720046DC6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AF6C2F829110E720046DC6B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +73,46 @@
 				1AAC5EEE291A49DF001CB9E2 /* CustomLabel.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		1AAC5EF8291B7EB9001CB9E2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1AF6C2FA29110E720046DC6B /* HomeViewController.swift */,
+				1AF6C311291134350046DC6B /* HomeTableViewCell.swift */,
+				1AF6C316291243530046DC6B /* HomeCollectionViewCell.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		1AAC5EF9291B7EBE001CB9E2 /* SettingView */ = {
+			isa = PBXGroup;
+			children = (
+				1AAC5EF6291B7EB3001CB9E2 /* SettingViewController.swift */,
+				1AAC5F12291BC47D001CB9E2 /* SettingCell.swift */,
+				1AAC5EFA291B7F51001CB9E2 /* SignAndLoginViewController.swift */,
+			);
+			path = SettingView;
+			sourceTree = "<group>";
+		};
+		1AAC5F00291B833E001CB9E2 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				1AAC5EFC291B831F001CB9E2 /* ItemDetailViewController.swift */,
+				1AAC5F14291BC4DA001CB9E2 /* ItemDetailCell.swift */,
+				1AAC5EFE291B833A001CB9E2 /* InsuranceDetailViewController.swift */,
+				1AAC5F10291BC3FA001CB9E2 /* InsuranceCell.swift */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		1AAC5F05291B8393001CB9E2 /* AddAndEditView */ = {
+			isa = PBXGroup;
+			children = (
+				1AAC5F01291B8378001CB9E2 /* InsuranceEditViewController.swift */,
+				1AAC5F03291B8390001CB9E2 /* AddCarViewController.swift */,
+			);
+			path = AddAndEditView;
 			sourceTree = "<group>";
 		};
 		1AF6C2EA29110E720046DC6B = {
@@ -93,9 +151,10 @@
 		1AF6C30D291117BF0046DC6B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				1AF6C2FA29110E720046DC6B /* HomeViewController.swift */,
-				1AF6C311291134350046DC6B /* HomeTableViewCell.swift */,
-				1AF6C316291243530046DC6B /* HomeCollectionViewCell.swift */,
+				1AAC5EF8291B7EB9001CB9E2 /* Home */,
+				1AAC5EF9291B7EBE001CB9E2 /* SettingView */,
+				1AAC5F00291B833E001CB9E2 /* DetailView */,
+				1AAC5F05291B8393001CB9E2 /* AddAndEditView */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -185,13 +244,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AAC5EFF291B833A001CB9E2 /* InsuranceDetailViewController.swift in Sources */,
 				1AF6C317291243530046DC6B /* HomeCollectionViewCell.swift in Sources */,
+				1AAC5F11291BC3FA001CB9E2 /* InsuranceCell.swift in Sources */,
 				1AF6C2FB29110E720046DC6B /* HomeViewController.swift in Sources */,
 				1AF6C312291134350046DC6B /* HomeTableViewCell.swift in Sources */,
 				1AF6C2F729110E720046DC6B /* AppDelegate.swift in Sources */,
 				1AF6C2F929110E720046DC6B /* SceneDelegate.swift in Sources */,
+				1AAC5EF7291B7EB3001CB9E2 /* SettingViewController.swift in Sources */,
+				1AAC5F13291BC47D001CB9E2 /* SettingCell.swift in Sources */,
+				1AAC5F15291BC4DA001CB9E2 /* ItemDetailCell.swift in Sources */,
+				1AAC5F04291B8390001CB9E2 /* AddCarViewController.swift in Sources */,
 				1AAC5EEF291A49DF001CB9E2 /* CustomLabel.swift in Sources */,
 				1AF6C3142911FCD30046DC6B /* CarInfo.swift in Sources */,
+				1AAC5F02291B8378001CB9E2 /* InsuranceEditViewController.swift in Sources */,
+				1AAC5EFD291B831F001CB9E2 /* ItemDetailViewController.swift in Sources */,
+				1AAC5EFB291B7F51001CB9E2 /* SignAndLoginViewController.swift in Sources */,
 				1AF6C30129110E720046DC6B /* myCarport.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
