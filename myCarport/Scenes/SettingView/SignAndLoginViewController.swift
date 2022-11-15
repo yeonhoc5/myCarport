@@ -9,13 +9,33 @@ import UIKit
 
 class SignAndLoginViewController: UIViewController {
 
+    
+    @IBOutlet var btnGoogle: UIButton!
+    @IBOutlet var btnApple: UIButton!
+    @IBOutlet var btnIdAandPass: UIButton!
+    @IBOutlet var btnCancel: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        settingBtns()
     }
     
+    func settingBtns() {
+        [btnGoogle, btnApple, btnIdAandPass].forEach {
+            $0?.backgroundColor = .systemTeal
+            $0?.tintColor = .white
+            $0?.layer.cornerRadius = 20
+            $0?.clipsToBounds = true
+        }
+        btnCancel.tintColor = .systemTeal
+    }
 
+    
+    
+    @IBAction func tapBtnCancel(_ sender: UIButton) {
+        self.dismiss(animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 

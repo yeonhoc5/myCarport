@@ -25,18 +25,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
             $0.center.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(12)
         }
-        
-//        let lblWidth = lblCarName.frame.width
-//        self.frame.size.width = lblWidth + 20
-//
-//        lblCarName.translatesAutoresizingMaskIntoConstraints = false
-//        let centerX: NSLayoutConstraint
-//        centerX = lblCarName.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-//        let centerY: NSLayoutConstraint
-//        centerY = lblCarName.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-//
-//        centerX.isActive = true
-//        centerY.isActive = true
     }
     
 }

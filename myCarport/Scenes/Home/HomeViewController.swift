@@ -11,7 +11,7 @@ import SnapKit
 
 class HomeViewController: UIViewController {
 // MARK: - 1. Properties & Outlets
-    // subView1
+    // subViews
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
     // selfViewContent
@@ -36,7 +36,6 @@ class HomeViewController: UIViewController {
         configTableView()
         configCollectionView()
         configCarInfoView(carNum: 0)
-        print(btnRenew.frame.height)
     }
     
 //MARK: - 3.View Functions
@@ -52,6 +51,7 @@ class HomeViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = .systemBackground
     }
     // 콜렉션뷰세팅
     func configCollectionView() {
@@ -118,11 +118,13 @@ extension HomeViewController {
         navigationItem.rightBarButtonItem?.tintColor = .systemGray2
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.tintColor = .systemTeal
+        
     }
     
     func setTopBackgroundView() {
         viewBackground.backgroundColor = .systemGray6
-        viewBackground.layer.cornerRadius = 10
+        viewBackground.layer.cornerRadius = 20
         // 상단 백그라운드 그림자 효과
         viewBackground.layer.shadowColor = UIColor.systemGray.cgColor
         viewBackground.layer.shadowRadius = 1.0
@@ -187,6 +189,18 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            guard let InsuranceVC = storyboard?.instantiateViewController(withIdentifier: "InsuranceDetailViewController") as? InsuranceDetailViewController else { return }
+            navigationController?.pushViewController(InsuranceVC, animated: true)
+        default:
+            guard let ItemDetailVC = storyboard?.instantiateViewController(withIdentifier: "ItemDetailViewController") as? ItemDetailViewController else { return }
+            navigationController?.pushViewController(ItemDetailVC, animated: true)
+        }
+    }
+    
+    
     
 }
 
@@ -222,6 +236,9 @@ extension HomeViewController: UICollectionViewDataSource {
         selectedCellNum = indexPath.row
         if selectedCellNum < myCarList.count {
             configCarInfoView(carNum: selectedCellNum)
+        } else {
+            guard let AddCarVC = storyboard?.instantiateViewController(withIdentifier: "AddCarViewController") as? AddCarViewController else { return }
+            self.present(AddCarVC, animated: true)
         }
     }
 }

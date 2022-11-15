@@ -9,9 +9,21 @@ import UIKit
 
 class SettingCell: UITableViewCell {
 
+    
+    @IBOutlet var imgView: UIImageView!
+    @IBOutlet var lblLoginGuide: UILabel!
+    @IBOutlet var btnLogin: UIButton!
+    
+    @IBOutlet var lblCarName: UILabel!
+    @IBOutlet var lblCarType: UILabel!
+    
+    @IBOutlet var btnSignOut: UIButton!
+    @IBOutlet var btnLogOut: UIButton!
+    
+    @IBOutlet var stackBtnOut: UIStackView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

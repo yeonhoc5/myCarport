@@ -9,4 +9,6 @@ import UIKit
 
 class ItemDetailCell: UICollectionViewCell {
     
+    @IBOutlet var imgView: UIImageView!
+    @IBOutlet var lblText: UILabel!
 }
