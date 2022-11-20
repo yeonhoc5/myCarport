@@ -8,11 +8,10 @@
 import UIKit
 
 class AddCarViewController: UIViewController {
-
+    
     @IBOutlet var lblTitle: UILabel!
     @IBOutlet var btnRegist: UIButton!
     @IBOutlet var btnCancel: UIButton!
-    
     
     @IBOutlet var tfCarName: UITextField!
     @IBOutlet var sgmCarFuel: UISegmentedControl!

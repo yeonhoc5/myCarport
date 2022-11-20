@@ -14,13 +14,8 @@ struct CarInfo {
     var typeFuel: TypeFuel
     var typeShift: TypeShift
     var mileage: Int = 0
-    var insurance: Insurance
-    var maintenance: Maintenance
-
-    enum Insurance {
-        case ssHwajae
-        case hhSangmyeong
-    }
+    var insurance: [Insurance]!
+    var maintenance: [Maintenance]!
     
     enum TypeFuel {
         case gasoline
@@ -33,21 +28,3 @@ struct CarInfo {
     }
 }
 
-struct Maintenance {
-    let oilEngine: MaintenanceInfo
-    let oilMission: MaintenanceInfo
-    let fltAirConditioner: MaintenanceInfo
-    let fltOil: MaintenanceInfo
-}
-
-struct MaintenanceInfo {
-    var cycleMileage: Int?
-    var cyclePeriod: Int?
-    var currentMileage: Int = 0
-    var lastChangeDate: Date?
-}
-
-let carListSample: [CarInfo] = [
-    CarInfo(carName: "라세티", carNumber: "48소9953", typeFuel: .gasoline, typeShift: .Auto, mileage: 128999, insurance: .ssHwajae, maintenance: Maintenance(oilEngine: MaintenanceInfo(), oilMission: MaintenanceInfo(), fltAirConditioner: MaintenanceInfo(), fltOil: MaintenanceInfo())),
-    CarInfo(carName: "트레일블레이저", carNumber: "000가0000", typeFuel: .diesel, typeShift: .Stick, mileage: 0, insurance: .hhSangmyeong, maintenance: Maintenance(oilEngine: MaintenanceInfo(), oilMission: MaintenanceInfo(), fltAirConditioner: MaintenanceInfo(), fltOil: MaintenanceInfo()))
-]

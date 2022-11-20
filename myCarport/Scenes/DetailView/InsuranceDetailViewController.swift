@@ -11,12 +11,17 @@ class InsuranceDetailViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = .systemGray6
-        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        settingView()
     }
 
+    
+    func settingView() {
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = .systemBackground
+        tableView.separatorColor = .clear
+    }
+    
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 3
@@ -31,17 +36,17 @@ class InsuranceDetailViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let identifer: String!
         switch indexPath {
-        case [0,1], [0,2]:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "DetailOfInsuranceCell") as? InsuranceCell else { return UITableViewCell() }
-            return cell
-        case [1,0]:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CallOfInsuranceCell") as? InsuranceCell else { return UITableViewCell() }
-            return cell
-        default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CorpOfInsuranceCell") as? InsuranceCell else { return UITableViewCell() }
-            return cell
+        case [0,1], [0,2]: identifer = "DetailOfInsuranceCell"
+        case [1,0]: identifer = "CallOfInsuranceCell"
+        default: identifer = "CorpOfInsuranceCell"
         }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifer) as? InsuranceCell else { return UITableViewCell() }
+        cell.layer.borderColor = UIColor.secondarySystemBackground.cgColor
+        cell.layer.borderWidth = 0.5
+        cell.backgroundColor = .secondarySystemBackground
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

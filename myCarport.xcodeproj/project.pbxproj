@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A7FDB622924EF7300474DB3 /* Maintenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7FDB612924EF7300474DB3 /* Maintenance.swift */; };
+		1A7FDB642924F09600474DB3 /* Insurance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7FDB632924F09600474DB3 /* Insurance.swift */; };
 		1AAC5EEC291A41FF001CB9E2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1AAC5EEB291A41FF001CB9E2 /* SnapKit */; };
 		1AAC5EEF291A49DF001CB9E2 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5EEE291A49DF001CB9E2 /* CustomLabel.swift */; };
 		1AAC5EF7291B7EB3001CB9E2 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5EF6291B7EB3001CB9E2 /* SettingViewController.swift */; };
@@ -31,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A7FDB612924EF7300474DB3 /* Maintenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Maintenance.swift; sourceTree = "<group>"; };
+		1A7FDB632924F09600474DB3 /* Insurance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insurance.swift; sourceTree = "<group>"; };
 		1AAC5EEE291A49DF001CB9E2 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		1AAC5EF6291B7EB3001CB9E2 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1AAC5EFA291B7F51001CB9E2 /* SignAndLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignAndLoginViewController.swift; sourceTree = "<group>"; };
@@ -98,10 +102,10 @@
 		1AAC5F00291B833E001CB9E2 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
-				1AAC5EFC291B831F001CB9E2 /* ItemDetailViewController.swift */,
-				1AAC5F14291BC4DA001CB9E2 /* ItemDetailCell.swift */,
 				1AAC5EFE291B833A001CB9E2 /* InsuranceDetailViewController.swift */,
 				1AAC5F10291BC3FA001CB9E2 /* InsuranceCell.swift */,
+				1AAC5EFC291B831F001CB9E2 /* ItemDetailViewController.swift */,
+				1AAC5F14291BC4DA001CB9E2 /* ItemDetailCell.swift */,
 			);
 			path = DetailView;
 			sourceTree = "<group>";
@@ -163,6 +167,8 @@
 			isa = PBXGroup;
 			children = (
 				1AF6C3132911FCD30046DC6B /* CarInfo.swift */,
+				1A7FDB612924EF7300474DB3 /* Maintenance.swift */,
+				1A7FDB632924F09600474DB3 /* Insurance.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -247,6 +253,7 @@
 				1AAC5EFF291B833A001CB9E2 /* InsuranceDetailViewController.swift in Sources */,
 				1AF6C317291243530046DC6B /* HomeCollectionViewCell.swift in Sources */,
 				1AAC5F11291BC3FA001CB9E2 /* InsuranceCell.swift in Sources */,
+				1A7FDB622924EF7300474DB3 /* Maintenance.swift in Sources */,
 				1AF6C2FB29110E720046DC6B /* HomeViewController.swift in Sources */,
 				1AF6C312291134350046DC6B /* HomeTableViewCell.swift in Sources */,
 				1AF6C2F729110E720046DC6B /* AppDelegate.swift in Sources */,
@@ -255,6 +262,7 @@
 				1AAC5F13291BC47D001CB9E2 /* SettingCell.swift in Sources */,
 				1AAC5F15291BC4DA001CB9E2 /* ItemDetailCell.swift in Sources */,
 				1AAC5F04291B8390001CB9E2 /* AddCarViewController.swift in Sources */,
+				1A7FDB642924F09600474DB3 /* Insurance.swift in Sources */,
 				1AAC5EEF291A49DF001CB9E2 /* CustomLabel.swift in Sources */,
 				1AF6C3142911FCD30046DC6B /* CarInfo.swift in Sources */,
 				1AAC5F02291B8378001CB9E2 /* InsuranceEditViewController.swift in Sources */,

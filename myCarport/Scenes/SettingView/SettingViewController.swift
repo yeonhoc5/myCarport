@@ -9,13 +9,15 @@ import UIKit
 
 class SettingViewController: UITableViewController {
     
-    var carList: [CarInfo] = carListSample
-    var isLogin = true
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var carList: [CarInfo] = []
+    var isLogin = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = .systemGray6
+        tableView.backgroundColor = .systemBackground
+//        carList = appDelegate.carListSample
     }
 
     // MARK: - Table view data source
@@ -27,7 +29,7 @@ class SettingViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return carList.count
+        case 1: return carList.isEmpty ? 1 : carList.count
         default: return 0
         }
     }
@@ -43,10 +45,10 @@ class SettingViewController: UITableViewController {
                 cell.btnLogOut.tintColor = .systemTeal
                 cell.btnSignOut.tintColor = .systemTeal
             } else {
-                cell.lblLoginGuide.text = "로그인하면 \n\n 데이터를 보호할 수 있습니다."
+                cell.lblLoginGuide.text = "로그인하여 \n\n보다 안전하게 데이터를 보호하세요."
                 cell.btnLogin.setTitle("로그인 하러 가기", for: .normal)
                 cell.btnLogin.tintColor = .systemBackground
-                cell.btnLogin.layer.cornerRadius = cell.btnLogin.frame.height / 2 - 10
+                cell.btnLogin.layer.cornerRadius = cell.btnLogin.frame.height / 4
                 cell.btnLogin.clipsToBounds = true
                 cell.btnLogin.becomeFirstResponder()
                 cell.stackBtnOut.isHidden = true
@@ -61,9 +63,17 @@ class SettingViewController: UITableViewController {
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "CarSettingCell") as? SettingCell else { return UITableViewCell() }
-            cell.lblCarName.text = carList[indexPath.row].carName
+            if carList.isEmpty {
+                cell.lblCarName.text = "등록된 차량이 없습니다."
+                cell.lblCarType.text = ""
+            } else {
+                let item = carList[indexPath.row]
+                let fuel = item.typeFuel == .gasoline ? "휘발유":"디젤"
+                let shift = item.typeShift == .Auto ? "오토":"수동"
+                cell.lblCarName.text = "[\(item.carNumber)] \(item.carName)"
+                cell.lblCarType.text = "\(fuel) (\(shift))"
+            }
             cell.lblCarName.sizeToFit()
-            cell.lblCarType.text = carList[indexPath.row].typeFuel == .gasoline ? "휘발유":"디젤"
             cell.lblCarType.sizeToFit()
             return cell
         default:

@@ -11,8 +11,19 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var carListSample: [CarInfo] = [
+        CarInfo(carName: "라세티", carNumber: "48소9953", typeFuel: .gasoline, typeShift: .Auto, mileage: 128999, maintenance: []),
+        CarInfo(carName: "트레일블레이저", carNumber: "000소0000", typeFuel: .diesel, typeShift: .Stick, mileage: 0, maintenance: [])
+    ] 
+    var itemList = [("에어컨필터", 5000), ("엔진오일", 10000), ("에어필터", 10000), ("오일필터", 10000), ("와이퍼", 10000), ("점화플러그", 30000), ("연료필터", 30000), ("브레이크액", 30000), ("브레이크패드", 40000), ("미션오일", 40000), ("냉각수", 40000), ("파워스티어링 오일", 50000), ("타이어(전)", 50000), ("타이어(후)", 50000), ("구동벨트", 60000),("타이밍벨트", 80000), ("배터리", 100000), ("디퍼런셜 오일", 120000)]
+
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-                
+        itemList.forEach { item in
+            for i in 0..<carListSample.count {
+                carListSample[i].maintenance.append(Maintenance(nameOfItem: item.0, cycleMileage: item.1))
+            }
+        }
         return true
     }
 
