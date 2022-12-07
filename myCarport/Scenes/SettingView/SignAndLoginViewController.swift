@@ -22,7 +22,7 @@ class SignAndLoginViewController: UIViewController {
     
     func settingBtns() {
         [btnGoogle, btnApple, btnIdAandPass].forEach {
-            $0?.backgroundColor = .systemTeal
+            $0?.backgroundColor = .btnTealBackground
             $0?.tintColor = .white
             $0?.layer.cornerRadius = 20
             $0?.clipsToBounds = true

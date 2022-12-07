@@ -14,13 +14,19 @@ struct CarInfo {
     var typeFuel: TypeFuel
     var typeShift: TypeShift
     var mileage: Int = 0
-    var insurance: [Insurance]!
-    var maintenance: [Maintenance]!
+    var insurance: [Insurance] = []
+    var maintenance: [Maintenance] = []
     
     enum TypeFuel {
         case gasoline
         case diesel
+        
+        enum CodingKeys: String, CodingKey  {
+            case gasoline = "가솔린"
+            case diesel = "디젤"
+        }
     }
+
 
     enum TypeShift {
         case Auto

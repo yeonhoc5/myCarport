@@ -7,40 +7,16 @@
 
 import Foundation
 
-struct Maintenance {
-//    let filterAC: MaintenanceInfo
-//
-//    let oilEngine: MaintenanceInfo
-//    let filterAir: MaintenanceInfo
-//    let filterOil: MaintenanceInfo
-//    let wiper: MaintenanceInfo
-//
-//    let sparkPlug: MaintenanceInfo
-//    let filterFuel: MaintenanceInfo
-//    let breakFluid: MaintenanceInfo
-//
-//    let breakPad: MaintenanceInfo
-//    let oilMission: MaintenanceInfo
-//    let coolingWater: MaintenanceInfo
-//
-//    let oilPowerSteering: MaintenanceInfo
-//    let tireFront: MaintenanceInfo
-//    let tireBack: MaintenanceInfo
-//
-//    let beltDrive: MaintenanceInfo
-//    let beltTiming: MaintenanceInfo
-//
-//    let battery: MaintenanceInfo
-//
-//    let oilDifferential: MaintenanceInfo
-//
-//}
-
-//struct MaintenanceInfo {
+struct Maintenance: Identifiable, Equatable {
+    static func == (lhs: Maintenance, rhs: Maintenance) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    var id: Int
     var nameOfItem: String
     var cycleMileage: Int
     var cyclePeriod: Int!
-    var historyManage: [ManageHistory]!
+    var historyManage: [ManageHistory]
 }
         
 struct ManageHistory {

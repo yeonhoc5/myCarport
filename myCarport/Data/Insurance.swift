@@ -7,15 +7,16 @@
 
 import Foundation
 
-enum InsuranceCorp: String {
-    case ssHaejae
-    case hdHaesang
-}
+//enum InsuranceCorp: String {
+//    case ssHaejae = "삼성화재"
+//    case hdHaesang = "현대해상"
+//}
 
 struct Insurance {
-    var corpName: InsuranceCorp
-    var dateStart: Data
-    var dataEnd: Date
-    var payContract: Int
-    var callOfCorp: String
+    var corpName: String
+    var dateStart: Date
+    var dateEnd: Date
+    var payContract: Int = 0
+    var startMileage: Int = 0
+    var callOfCorp: String!
 }

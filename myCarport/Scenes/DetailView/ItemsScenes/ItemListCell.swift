@@ -1,14 +1,18 @@
 //
-//  InsuranceCell.swift
+//  ItemListCell.swift
 //  myCarport
 //
-//  Created by yeonhoc5 on 2022/11/09.
+//  Created by yeonhoc5 on 2022/12/05.
 //
 
 import UIKit
+import SnapKit
 
-class InsuranceCell: UITableViewCell {
+class ItemListCell: UITableViewCell {
 
+    
+    @IBOutlet var lblItemName: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,7 +29,7 @@ class InsuranceCell: UITableViewCell {
             return super.frame
         }
         set (newFrame) {
-            let inset: CGFloat = 15
+            let inset: CGFloat = 25
             var frame = newFrame
             frame.origin.x += inset
             frame.size.width -= 2 * inset
