@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol EditInsurance {
+    func editInsurance(type: EditType, index: Int!, insurance: Insurance)
+}
+        
 class InsuranceEditViewController: UIViewController {
 
     // 아울렛 properties
@@ -21,14 +25,13 @@ class InsuranceEditViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var collectionViewHeight: NSLayoutConstraint!
     // 뷰 세팅용 properties
+    var carInfo: CarInfo?
     var insurance: Insurance?
-    var indexOfCar: Int!
-//    let pickerCorp = UIPickerView()
-    let pickerDate = UIDatePicker()
+    var indexOfInsurance: Int!
+    let pickerDateSE = UIDatePicker()
+    let pickerDateE = UIDatePicker()
     var titleInsurance: String = "보험 수정"
     var titleRegistBtn: String = "등록"
-    let nameOfCorps = ["AXA손해보험", "DB손해보험","KB손해보험", "MG손해보험","롯데손해보험","메리츠화재","삼성화재", "캐롯손해보험","하나손해보험","한화손해보험","현대해상","흥국화재"]
-    let logoOfCorps = ["axa", "db","kb", "mg","lotte","meritz","samsung", "carrot","hana","hanhwa","hyundai","heungkuk"]
     // 저장할 데이터용 properties
     var selectedRow: Int!
     var startDate: Date!
@@ -46,7 +49,7 @@ class InsuranceEditViewController: UIViewController {
         settingBtns()
         settingTfs()
         settingStartData()
-        settingDatePicker()
+        settingDatePickers()
         settingCollectionView()
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -62,7 +65,7 @@ class InsuranceEditViewController: UIViewController {
         collectionViewHeight.constant = height + collectionView.contentInset.top + collectionView.contentInset.bottom
         self.view.layoutIfNeeded()
     }
-    
+    // 버튼 세팅
     func settingBtns() {
         btnRegist.setTitle(titleRegistBtn, for: .normal)
         [btnRegist, btnCancel].forEach {
@@ -70,9 +73,22 @@ class InsuranceEditViewController: UIViewController {
             $0?.backgroundColor = .btnTealBackground
             $0?.tintColor = .white
         }
-        btnRegist.isEnabled = false
-    }
+        if insurance != nil {
+            if tfNameOfCorp.text != ""
+                || tfDateStart.text != ""
+                || tfDateEnd.text != ""
+                || tfPay.text != ""
+                || tfMileage.text != "" {
+                btnRegist.isEnabled = true
+            } else {
+                btnRegist.isEnabled = false
+            }
+        } else {
+            btnRegist.isEnabled = false
+        }
 
+    }
+    // 텍스트필드 세팅
     func settingTfs() {
         [tfNameOfCorp, tfDateStart, tfDateEnd].forEach {
             $0?.delegate = self
@@ -82,12 +98,12 @@ class InsuranceEditViewController: UIViewController {
             $0?.keyboardType = .numberPad
             $0?.textAlignment = .center
         }
-//        pickerCorp.delegate = self
-//        pickerCorp.dataSource = self
-//        tfNameOfCorp.inputView = pickerCorp
         tfNameOfCorp.inputView = UIView()
         tfNameOfCorp.addTarget(self, action: #selector(showCollectionView), for: .allTouchEvents)
-        tfNameOfCorp.addTarget(self, action: #selector(checkEmpty), for: .editingChanged)
+        [tfNameOfCorp, tfPay, tfMileage, tfDateStart, tfDateEnd].forEach {
+            $0.addTarget(self, action: #selector(checkEmpty), for: .editingChanged)
+        }
+//        pickerDate.sendActions(for: .valueChanged)
         tfNameOfCorp.textColor = .label
     }
     @objc func showCollectionView() {
@@ -96,7 +112,11 @@ class InsuranceEditViewController: UIViewController {
         }
     }
     @objc func checkEmpty() {
-        Funcs.checkValidation(textFields: [tfNameOfCorp], btn: btnRegist)
+        if insurance == nil {
+            Funcs.checkValidation(textFields: [tfNameOfCorp], btn: btnRegist)
+        } else {
+            Funcs.checkValidation(textFields: [tfNameOfCorp, tfDateStart, tfDateEnd, tfPay, tfMileage], btn: btnRegist, type: .any)
+        }
     }
     func settingStartData() {
         lblTitleInsurance.text = titleInsurance
@@ -104,31 +124,83 @@ class InsuranceEditViewController: UIViewController {
             startDate = Date()
             endDate = startDate.addingTimeInterval(364 * 24 * 3600)
             tfNameOfCorp.placeholder = "보험사를 선택해 주세요"
-            tfMileage.text = "0"
-            tfPay.text = "0"
+            tfMileage.placeholder = "0"
+            tfPay.placeholder = "0"
+            tfDateStart.text = Funcs.formatteredDate(date: startDate)
+            tfDateEnd.text = Funcs.formatteredDate(date: endDate)
         } else {
             startDate = insurance?.dateStart
             endDate = insurance?.dateEnd
             tfNameOfCorp.placeholder = insurance?.corpName
-            tfMileage.text = "\(insurance?.startMileage ?? 0)"
-            tfPay.text = "\(insurance?.payContract ?? 0)"
+            tfMileage.placeholder = "\(insurance?.mileageContract ?? 0)"
+            tfPay.placeholder = "\(insurance?.payContract ?? 0)"
+            tfDateStart.placeholder = Funcs.formatteredDate(date: startDate)
+            tfDateEnd.placeholder = Funcs.formatteredDate(date: endDate)
+            selectedRow = appDelegate.insuranceCorp.firstIndex(where: { $0.name == insurance?.corpName })
+             
         }
-        tfDateStart.text = Funcs.formatteredDate(date: startDate)
-        tfDateEnd.text = Funcs.formatteredDate(date: endDate)
     }
-    func settingDatePicker() {
-        [tfDateStart, tfDateEnd].forEach {
-            $0?.inputView = pickerDate
+    
+    func settingDatePickers() {
+        [pickerDateSE, pickerDateE].forEach {
+            $0.preferredDatePickerStyle = .inline
+            $0.locale = Locale(identifier: "ko-KR")
         }
-        pickerDate.preferredDatePickerStyle = .inline
-        pickerDate.locale = Locale(identifier: "ko-KR")
-        pickerDate.addTarget(self, action: #selector(selectedDay), for: .valueChanged)
+        pickerDateSE.addTarget(self, action: #selector(selectedDay), for: .valueChanged)
+        pickerDateE.addTarget(self, action: #selector(changeEndDay), for: .valueChanged)
+
+        if insurance != nil {
+            pickerDateSE.setDate(insurance?.dateStart ?? Date(), animated: false)
+            pickerDateE.setDate(insurance?.dateEnd ?? Date(), animated: false)
+        }
+
+        
+        let toolbarSE = UIToolbar()
+        let toolbarE = UIToolbar()
+        [toolbarSE, toolbarE].forEach {
+            $0.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
+            $0.backgroundColor = UIColor(red: 66/255, green: 65/255, blue: 78/255, alpha: 1)
+        }
+        
+        let messageSE = UIBarButtonItem(title: "(시작일/종료일을 함께 변경합니다)")
+        let messageE = UIBarButtonItem(title: "(종료일만 변경합니다)")
+        [messageSE, messageE].forEach {
+            $0.isEnabled = false
+            $0.tintColor = .black
+        }
+        let spacer = UIBarButtonItem(systemItem: .flexibleSpace)
+        let btnDoneSE = UIBarButtonItem(title: "선택 완료", style: .done, target: self, action: #selector(closeDatePicker))
+        let btnDoneE = UIBarButtonItem(title: "선택 완료", style: .done, target: self, action: #selector(closeDatePicker))
+        
+        toolbarSE.setItems([messageSE, spacer, btnDoneSE], animated: true)
+        toolbarE.setItems([messageE, spacer, btnDoneE], animated: true)
+        
+        tfDateStart.inputView = pickerDateSE
+        tfDateStart.inputAccessoryView = toolbarSE
+        tfDateEnd.inputView = pickerDateE
+        tfDateEnd.inputAccessoryView = toolbarE
+        
+        [pickerDateSE, pickerDateE, toolbarSE, toolbarE].forEach {
+            $0.tintColor = .systemTeal
+        }
     }
+    
     @objc func selectedDay() {
-        startDate = pickerDate.date
+        startDate = pickerDateSE.date
         endDate = startDate.addingTimeInterval(364 * 24 * 3600)
         tfDateStart.text = Funcs.formatteredDate(date: startDate)
+        tfDateStart.sendActions(for: .editingChanged)
         tfDateEnd.text = Funcs.formatteredDate(date: endDate)
+        tfDateEnd.sendActions(for: .editingChanged)
+    }
+    @objc func changeEndDay() {
+        endDate = pickerDateE.date
+        tfDateEnd.text = Funcs.formatteredDate(date: endDate)
+        tfDateEnd.sendActions(for: .editingChanged)
+    }
+    
+    @objc func closeDatePicker() {
+        view.endEditing(true)
     }
     func settingCollectionView() {
         // 콜렉션뷰 델리게이트
@@ -150,12 +222,34 @@ class InsuranceEditViewController: UIViewController {
     }
     
     @IBAction func tabBtnRegist(_ sender: UIButton) {
-        mileage = Int(tfMileage.text ?? "0")
-        pay = Int(tfPay.text ?? "0")
-        let insurance = Insurance(corpName: nameOfCorps[selectedRow], dateStart: startDate, dateEnd: endDate, payContract: pay ?? 0, startMileage: mileage ?? 0)
-        appDelegate.carList[indexOfCar].insurance.append(insurance)
+        pay = Int((tfPay.text == "" ? tfPay.placeholder : tfPay.text) ?? "0")
+        mileage = Int((tfMileage.text == "" ? tfMileage.placeholder : tfMileage.text) ?? "0")
+        let editedStarDate = startDate ?? insurance?.dateStart
+        let editedEndDate = endDate ?? insurance?.dateEnd
+        let readyInsurance = Insurance(corpName: appDelegate.insuranceCorp[selectedRow].name,
+                                       dateStart: editedStarDate,
+                                       dateEnd: editedEndDate,
+                                       payContract: pay ?? 0,
+                                       mileageContract: mileage ?? 0)
+        let dao = CarInfoDAO()
+        if insurance == nil {
+            if let carInfo = self.carInfo {
+                if dao.addInsuranceTotheCar(carInfo, insurance: readyInsurance) {
+                    delegate.editInsurance(type: .add, insurance: readyInsurance)
+                }
+            }
+        } else {
+            print("step1. will change")
+            if let insuranceID = self.insurance?.objectID {
+                print("step2. will change")
+                if dao.modifyInsuranceInfo(InsuranceID: insuranceID, insurance: readyInsurance) {
+                    print("step3. will change")
+                    delegate.editInsurance(type: .modify, index: indexOfInsurance, insurance: readyInsurance)
+                }
+            }
+            
+        }
         self.dismiss(animated: true)
-        delegate.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func tabBtnCancel(_ sender: UIButton) {
@@ -197,7 +291,9 @@ extension InsuranceEditViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return false
     }
+    
 }
+
 
 
 extension InsuranceEditViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -206,11 +302,11 @@ extension InsuranceEditViewController: UICollectionViewDataSource, UICollectionV
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return nameOfCorps.count
+        return appDelegate.insuranceCorp.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CorpNameCell", for: indexPath) as? CorpNameCell else { return UICollectionViewCell()}
-        cell.settingCell(image: logoOfCorps[indexPath.row])
+        cell.settingCell(image: appDelegate.insuranceCorp[indexPath.row].logo)
         return cell
     }
     
@@ -226,7 +322,7 @@ extension InsuranceEditViewController: UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        tfNameOfCorp.text = nameOfCorps[indexPath.row]
+        tfNameOfCorp.text = appDelegate.insuranceCorp[indexPath.row].name
         tfNameOfCorp.sendActions(for: .editingChanged)
         selectedRow = indexPath.row
         UIView.animate(withDuration: 0.4, delay: 0) {

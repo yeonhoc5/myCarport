@@ -12,8 +12,8 @@ class ItemDetailCell: UICollectionViewCell {
     
     @IBOutlet var imgView: UIImageView!
     @IBOutlet var lblText: UILabel!
+    @IBOutlet var lblSubText: UILabel!
     
-
     func settingLabel(text: String) {
         self.lblText.text = text
         lblText.textAlignment = .center
@@ -22,15 +22,22 @@ class ItemDetailCell: UICollectionViewCell {
         }
     }
 
-    func settingImageView(image: String) {
-        self.imgView.image = UIImage(systemName: image)
+    func settingSubLabel(text: String, image: String) {
+        imgView.image = UIImage(systemName: image)
         imgView.contentMode = .scaleToFill
         imgView.tintColor = .systemTeal.withAlphaComponent(0.4)
+        
+        lblSubText.text = text
+        lblSubText.textAlignment = .right
+        
         imgView.snp.makeConstraints {
-            $0.height.equalToSuperview().offset(10)
             $0.center.equalToSuperview()
+            $0.height.greaterThanOrEqualToSuperview()
+            $0.width.equalTo(15)
         }
-        imgView.frame.size.width = imgView.frame.width / 2
+        lblSubText.snp.makeConstraints {
+            $0.leading.equalTo(imgView.snp.trailing)
+            $0.top.bottom.trailing.equalToSuperview()
+        }
     }
-    
 }

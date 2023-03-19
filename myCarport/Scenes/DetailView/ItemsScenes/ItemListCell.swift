@@ -7,11 +7,13 @@
 
 import UIKit
 import SnapKit
+import CoreData
 
 class ItemListCell: UITableViewCell {
 
     
     @IBOutlet var lblItemName: UILabel!
+    var objectID: NSManagedObjectID!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -7,6 +7,11 @@
 
 import UIKit
 
+
+protocol RenewCarList {
+    func renewCarList()
+}
+
 class AddAndEditCarViewController: UIViewController {
     
     @IBOutlet var lblTitle: UILabel!
@@ -31,8 +36,7 @@ class AddAndEditCarViewController: UIViewController {
     var delegate: HomeViewController!
     var delegate2: SettingViewController!
     
-    // 수정용 properties
-    var indexOfCar: Int!
+    lazy var dao = CarInfoDAO()
     
     //MARK: - view DidLoad & touchsBegan
     override func viewDidLoad() {
@@ -56,7 +60,7 @@ class AddAndEditCarViewController: UIViewController {
         // setting buttons
         [btnRegist, btnCancel].forEach {
             $0?.layer.cornerRadius = 10
-            $0?.backgroundColor = .btnTealBackground
+            $0?.backgroundColor = .systemTeal.withAlphaComponent(0.8)
             $0?.tintColor = .white
         }
         btnRegist.setTitle(btnTitle, for: .normal)
@@ -70,22 +74,40 @@ class AddAndEditCarViewController: UIViewController {
         textfields.forEach  {
             $0.addTarget(self, action: #selector(checkEmpty), for: .editingChanged)
         }
+        [sgmCarFuel, sgmCarType].forEach {
+            $0?.addTarget(self, action: #selector(checkChange), for: .valueChanged)
+        }
     }
     @objc func checkEmpty() {
-        Funcs.checkValidation(textFields: textfields, btn: btnRegist)
+        if carInfo == nil {
+            Funcs.checkValidation(textFields: [tfCarName, tfCarNumber], btn: btnRegist)
+        } else {
+            Funcs.checkValidation(textFields: [tfCarName, tfCarNumber, tfMileage], btn: btnRegist, type: .any)
+        }
+        
     }
+    @objc func checkChange() {
+        if carInfo != nil && (carInfo?.typeFuel.rawValue ?? 0 != sgmCarFuel.selectedSegmentIndex
+                              || carInfo?.typeShift.rawValue ?? 0 != sgmCarType.selectedSegmentIndex) {
+            self.btnRegist.isEnabled = true
+        } else {
+            self.btnRegist.isEnabled = false
+        }
+        
+    }
+    
     
     private func settingData() {
         if let carSelected = carInfo {
-            tfCarName.text = carSelected.carName
-            tfCarNumber.text = carSelected.carNumber
+            tfCarName.placeholder = carSelected.carName
+            tfCarNumber.placeholder = carSelected.carNumber
             sgmCarFuel.selectedSegmentIndex = carSelected.typeFuel == .gasoline ? 0:1
-            sgmCarType.selectedSegmentIndex = carSelected.typeShift == .Auto ? 0:1
-            tfMileage.text = "\(carSelected.mileage)"
+            sgmCarType.selectedSegmentIndex = carSelected.typeShift == .auto ? 0:1
+            tfMileage.placeholder = "\(carSelected.mileage)"
         } else {
-            tfCarName.placeholder = "자유롭게 입력해주세요."
-            tfCarNumber.placeholder = "차대 번호를 입력해주세요."
-            tfMileage.text = "0"
+            tfCarName.placeholder = "차량명을 입력해주세요."
+            tfCarNumber.placeholder = "차대번호를 입력해주세요."
+            tfMileage.placeholder = "0"
         }
     }
     
@@ -93,26 +115,44 @@ class AddAndEditCarViewController: UIViewController {
         if carInfo == nil {
             guard let carNameToAdd: String = tfCarName?.text,
                   let carNumbToAdd: String = tfCarNumber?.text,
-                  let mileageToAdd: Int = Int(tfMileage?.text ?? "") else { return }
-            appDelegate.carList.append(CarInfo(carName: carNameToAdd,
-                                               carNumber: carNumbToAdd,
-                                               typeFuel: sgmCarFuel.selectedSegmentIndex == 0 ? .gasoline:.diesel,
-                                               typeShift: sgmCarType.selectedSegmentIndex == 0 ? .Auto:.Stick,
-                                               mileage: mileageToAdd,
-                                               maintenance: appDelegate.settingFirstMaintenance()))
-            delegate.animationCount.append(Array(repeating: -1, count: 19))
-            self.dismiss(animated: true)
+                  let mileageToAdd: Int = Int((tfMileage?.text == "" ? "0" : tfMileage.text)!) else { return }
+            let carInfo = CarInfo(carName: carNameToAdd,
+                                  carNumber: carNumbToAdd,
+                                  typeFuel: Int16(sgmCarFuel.selectedSegmentIndex).toTypeFuel(),
+                                  typeShift: Int16(sgmCarType.selectedSegmentIndex).toTypeShift(),
+                                  mileage: mileageToAdd)
+            if dao.addCarList(carInfo) {
+                if let count = appDelegate.myCarList.last?.maintenance.count {
+                    delegate.addAnimationCount(count: count + 1)
+                }
+                self.dismiss(animated: true)
+            }
         } else {
-            guard let carNameToEdit: String = tfCarName?.text,
-                  let carNumbToEdit: String = tfCarNumber?.text,
-                  let mileageToEdit: Int = Int(tfMileage?.text ?? "") else { return }
-            print(carNumbToEdit, carNumbToEdit, mileageToEdit)
-            appDelegate.carList[indexOfCar].carName = carNameToEdit
-            appDelegate.carList[indexOfCar].carNumber = carNumbToEdit
-            appDelegate.carList[indexOfCar].mileage = mileageToEdit
-            appDelegate.carList[indexOfCar].typeFuel = sgmCarFuel.selectedSegmentIndex == 0 ? .gasoline:.diesel
-            appDelegate.carList[indexOfCar].typeShift = sgmCarType.selectedSegmentIndex == 0 ? .Auto:.Stick
-            delegate2.carList = appDelegate.carList
+            guard let carNameToEdit: String = tfCarName?.text == "" ? tfCarName.placeholder : tfCarName?.text,
+                  let carNumbToEdit: String = tfCarNumber?.text == "" ? tfCarNumber.placeholder : tfCarNumber.placeholder,
+                  let mileageToEdit: Int = Int(tfMileage?.text == "" ? tfMileage.placeholder! : tfMileage.text ?? "0") else { return }
+            let typeFueltoEdit: TypeFuel = sgmCarFuel.selectedSegmentIndex == 0 ? .gasoline : .diesel
+            let typeShiftToEdit: TypeShift = sgmCarType.selectedSegmentIndex == 0 ? .auto : .manual
+            
+            print(carNameToEdit, carNumbToEdit, mileageToEdit, typeFueltoEdit, typeShiftToEdit)
+            let modifiedCarInfo = CarInfo(carName: carNameToEdit, carNumber: carNumbToEdit, typeFuel: typeFueltoEdit, typeShift: typeShiftToEdit, mileage: mileageToEdit)
+            
+            
+            if let carID = carInfo?.objectID {
+                let dao = CarInfoDAO()
+                if dao.modifyCarInfo(carID: carID, carInfo: modifiedCarInfo) {
+                    appDelegate.myCarList = dao.fetch()
+                    delegate2.renewCarList()
+                }
+            }
+            
+            
+//            appDelegate.carList[indexOfCar].carName = carNameToEdit
+//            appDelegate.carList[indexOfCar].carNumber = carNumbToEdit
+//            appDelegate.carList[indexOfCar].mileage = mileageToEdit
+//            appDelegate.carList[indexOfCar].typeFuel = sgmCarFuel.selectedSegmentIndex == 0 ? .gasoline:.diesel
+//            appDelegate.carList[indexOfCar].typeShift = sgmCarType.selectedSegmentIndex == 0 ? .auto:.manual
+//            delegate2.carList = appDelegate.carList
             self.dismiss(animated: true)
         }
         

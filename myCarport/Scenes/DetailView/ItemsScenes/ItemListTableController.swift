@@ -6,57 +6,71 @@
 //
 
 import UIKit
+import CoreData
 
 class ItemListTableController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnRegist: UIButton!
+    @IBOutlet var btnCancel: UIButton!
     
-    var cycleList: [Int] = [5000, 10000, 30000, 40000, 50000, 60000, 80000, 100000, 120000]
-    var cycleTitle: [String] = ["5천", "1만", "3만", "4만", "5만", "6만", "8만", "1십만", "12만"]
-    var isSelected: [Bool] = Array(repeating: false, count: 18)
+    var cycleList: [Int] = []
+//    var isSelected: [Bool] = Array(repeating: false, count: 18)
+    var selectedID: [NSManagedObjectID]! {
+        didSet {
+            self.btnTitle = selectedID.count == 1 ? "1개의 아이템만 갱신하기" : "\(selectedID.count)개의 아이템 갱신하기"
+        }
+    }
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var indexOfCar: Int!
     var idOfItem: Int!
+    
+    var maintenance: [Maintenance]!
     var history: ManageHistory!
     
     var delegate: ItemDetailViewController!
     
+    var btnTitle: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "관리 기록 함께 갱신하기"
-        settingBtnRenew()
+        settingBtns()
         settingTableView()
         view.backgroundColor = tableView.backgroundColor
         
     }
     
-    private func settingBtnRenew() {
-        btnRegist.layer.cornerRadius = 10
-        btnRegist.tintColor = .white
-        btnRegist.backgroundColor = .btnTealBackground
-        btnRegist.setTitle("갱신하기", for: .normal)
+    private func settingBtns() {
+        [btnRegist, btnCancel].forEach {
+            $0.layer.cornerRadius = 10
+            $0.tintColor = .white
+            $0.backgroundColor = .systemTeal.withAlphaComponent(0.8)
+        }
+        btnRegist.setTitle("1개의 아이템만 갱신하기", for: .normal)
+        btnCancel.setTitle("취소", for: .normal)
     }
     
     private func settingTableView() {
         tableView.dataSource = self
         tableView.delegate = self
+        self.cycleList = Array(Set((self.maintenance.compactMap{$0.cycleMileage}))).sorted(by: {$0 < $1})
     }
     
     
     @IBAction func tapBtnRegist(_ sender: UIButton) {
-        for i in 0..<isSelected.count {
-            if isSelected[i] {
-                appDelegate.carList[indexOfCar].maintenance[i].historyManage.append(self.history)
-            }
+        let dao = CarInfoDAO()
+        if dao.addMaintenanceHistory(maintenanaceID: selectedID, history: history) {
+            self.presentingViewController?.dismiss(animated: true)
+            delegate?.collectionView.reloadData()
+            delegate?.addHistory(history)
         }
-        delegate.maintenance = appDelegate.carList[indexOfCar].maintenance[idOfItem]
-        delegate.collectionView.reloadData()
-        self.presentingViewController?.dismiss(animated: true)
-        delegate.navigationController?.popToRootViewController(animated: true)
         
     }
     
+    @IBAction func tabBtnCancel(_ sender: UIButton) {
+        self.presentingViewController?.dismiss(animated: true)
+    }
     
     // MARK: - Table view data source
 
@@ -115,7 +129,7 @@ extension ItemListTableController: UITableViewDataSource, UITableViewDelegate {
         return self.cycleList.count
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "주기 : \(self.cycleTitle[section])km"
+        return "주기 : \(Funcs.numberToString(number: cycleList[section]))"
     }
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView {
@@ -124,7 +138,7 @@ extension ItemListTableController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        appDelegate.itemList.filter{$0.1 == self.cycleList[section]}.count
+        return self.maintenance.filter{$0.cycleMileage == cycleList[section]}.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
@@ -134,35 +148,38 @@ extension ItemListTableController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListCell") as? ItemListCell else { return UITableViewCell()}
         cell.tintColor = .systemTeal
-        cell.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
+        cell.layer.borderColor = tableView.backgroundColor?.cgColor
         cell.layer.borderWidth = 0.5
         
-        let items = appDelegate.itemList.filter{$0.1 == cycleList[indexPath.section]}
-        cell.lblItemName.text = items[indexPath.row].0
-        if let index = appDelegate.itemList.firstIndex(where: { $0.0 == items[indexPath.row].0 }) {
-            if index == idOfItem {
-                cell.accessoryType = .checkmark
-                cell.isUserInteractionEnabled = false
-                cell.lblItemName.textColor = .systemTeal
-                cell.lblItemName.font = .systemFont(ofSize: 14, weight: .heavy)
-            } else {
-                cell.isUserInteractionEnabled = true
-                cell.accessoryType = isSelected[index] == true ? .checkmark : .none
-                cell.lblItemName.textColor = .label
-                cell.lblItemName.font = .systemFont(ofSize: 14)
-            }
+        let items = self.maintenance.filter{$0.cycleMileage == cycleList[indexPath.section]}
+        cell.lblItemName.text = items[indexPath.row].nameOfItem
+        cell.objectID = items[indexPath.row].objectID
+        
+        if cell.objectID == self.selectedID.first! {
+            cell.accessoryType = .checkmark
+            cell.isUserInteractionEnabled = false
+            cell.lblItemName.textColor = .systemTeal
+            cell.lblItemName.font = .systemFont(ofSize: 14, weight: .heavy)
+        } else {
+            cell.isUserInteractionEnabled = true
+            cell.accessoryType = selectedID.contains(cell.objectID) == true ? .checkmark : .none
+            cell.lblItemName.textColor = .label
+            cell.lblItemName.font = .systemFont(ofSize: 14)
         }
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let items = appDelegate.itemList.filter{$0.1 == cycleList[indexPath.section]}
-        if let index = appDelegate.itemList.firstIndex(where: { $0.0 == items[indexPath.row].0 }) {
-            if index != idOfItem {
-                isSelected[index].toggle()
+        let items = self.maintenance.filter{$0.cycleMileage == cycleList[indexPath.section]}
+        if let objectID = items[indexPath.row].objectID {
+            if let index = selectedID.firstIndex(of: objectID) {
+                selectedID.remove(at: index)
+            } else {
+                selectedID.append(objectID)
             }
         }
+        self.btnRegist.setTitle(btnTitle, for: .normal)
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

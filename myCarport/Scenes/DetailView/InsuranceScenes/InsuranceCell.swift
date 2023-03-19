@@ -15,68 +15,77 @@ class InsuranceCell: UITableViewCell {
     }
     
     @IBOutlet var lblTitle: UILabel!
-    @IBOutlet var lblSubTitle: UILabel!
-    @IBOutlet var btnTelNum: UIButton!
-    @IBOutlet var btnTelEdit: UIButton!
+    @IBOutlet var lblDateStart: UILabel!
+    @IBOutlet var lblDateEnd: UILabel!
+    @IBOutlet var lblCallNumber: UILabel!
     
     var idOfCar: Int!
     
     func settingCellCorp(type: InsuranceStatue, strEmpty: String! = "", insurance: Insurance! = nil) {
-        switch type {
-        case .isNil:
-            lblSubTitle.isHidden = false
-            lblTitle.textColor = .label
-            lblSubTitle.textColor = .label
-            lblTitle.text = "-- 보험"
-            lblSubTitle.text = "0000-00-00\n~ 0000-00-00"
-        case .empty:
-            lblSubTitle.isHidden = true
-            lblTitle.textColor = .secondaryLabel
-            lblTitle.text = strEmpty
-            lblSubTitle.text = ""
-        default:
-            lblSubTitle.isHidden = false
-            lblTitle.textColor = .label
-            lblSubTitle.textColor = .label
-            lblTitle.text = "\(insurance.corpName)"
-            lblSubTitle.text = "\(Funcs.formatteredDate(date: insurance.dateStart))\n~ \(Funcs.formatteredDate(date: insurance.dateEnd))"
-        }
+            switch type {
+            case .isNil:
+                lblTitle.text = "-- 보험"
+                lblTitle.textColor = .label
+                lblDateStart.text = "0000-00-00"
+                lblDateEnd.text = "~ 0000-00-00"
+                [lblDateStart, lblDateEnd].forEach {
+                    $0.isHidden = false
+                    $0.textColor = .label
+                }
+            case .empty:
+                lblTitle.text = strEmpty
+                lblTitle.textColor = .secondaryLabel
+                lblDateStart.isHidden = true
+                lblDateEnd.isHidden = true
+            default:
+                lblTitle.text = "\(insurance.corpName ?? "")"
+                lblTitle.textColor = .label
+                lblDateStart.text = "\(Funcs.formatteredDate(date: insurance.dateStart!))"
+                lblDateEnd.text = "~ \(Funcs.formatteredDate(date: insurance.dateEnd!))"
+                [lblDateStart, lblDateEnd].forEach {
+                    $0.isHidden = false
+                    $0.textColor = .label
+                }
+            }
     }
     
     func settingCellMileage(type: InsuranceStatue, insurance: Insurance! = nil) {
         lblTitle.text = "(등록 시 주행거리)"
         lblTitle.textColor = .secondaryLabel
-        lblSubTitle.textColor = .secondaryLabel
+        lblDateStart.textColor = .secondaryLabel
         switch type {
         case .isNil, .empty:
-            lblSubTitle.text = "-- km"
+            lblDateStart.text = "-- km"
         default:
-            lblSubTitle.text = "\(insurance.startMileage) km"
+            lblDateStart.text = "\(Funcs.addCommaToNumber(number: insurance.mileageContract)) km"
         }
     }
     
     func settingCellPay(type: InsuranceStatue, insurance: Insurance! = nil) {
         lblTitle.text = "(결제금)"
         lblTitle.textColor = .secondaryLabel
-        lblSubTitle.textColor = .secondaryLabel
+        lblDateStart.textColor = .secondaryLabel
         switch type {
         case .isNil, .empty:
-            lblSubTitle.text = "-- 원"
+            lblDateStart.text = "-- 원"
         default:
-            lblSubTitle.text = "\(insurance.payContract) 원"
+            lblDateStart.text = "\(Funcs.addCommaToNumber(number: insurance.payContract)) 원"
         }
     }
     func settingCellCall(type: InsuranceStatue, insurance: Insurance! = nil) {
-        btnTelEdit.setImage(UIImage(systemName: "pencil"), for: .normal)
+        
         switch type {
         case .isNil, .empty:
-            btnTelNum.setTitle("0000-0000", for: .normal)
-            btnTelNum.tintColor = .secondaryLabel
-            btnTelEdit.tintColor = .secondaryLabel
+            lblCallNumber.text = "0000-0000"
+            lblCallNumber.textColor = .secondaryLabel
         default:
-            btnTelNum.setTitle(insurance.callOfCorp, for: .normal)
-            btnTelNum.tintColor = .btnTealBackground
-            btnTelEdit.tintColor = .btnTealBackground
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            if let index = appDelegate.insuranceCorp.firstIndex(where: { $0.name == insurance?.corpName }) {
+                let front = appDelegate.insuranceCorp[index].callNumber / 10000
+                let back = appDelegate.insuranceCorp[index].callNumber % 10000
+                lblCallNumber.text = "\(front)-\(back < 1000 ? "0" : "")\(back)"
+            }
+            lblCallNumber.textColor = .btnTealBackground
         }
     }
     
@@ -100,13 +109,6 @@ class InsuranceCell: UITableViewCell {
             frame.size.width -= 2 * inset
             super.frame = frame
         }
-    }
-    
-    @IBAction func tabBtnTelNum(_ sender: Any) {
-    }
-    
-    
-    @IBAction func tabBtnTelEdit(_ sender: Any) {
     }
     
 }

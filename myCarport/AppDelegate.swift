@@ -11,31 +11,55 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var itemList = [("에어컨필터", 5000), ("엔진오일", 10000), ("에어필터", 10000), ("오일필터", 10000), ("와이퍼", 10000), ("점화플러그", 30000), ("연료필터", 30000), ("브레이크액", 30000), ("브레이크패드", 40000), ("미션오일", 40000), ("냉각수", 40000), ("파워스티어링 오일", 50000), ("타이어(전)", 50000), ("타이어(후)", 50000), ("구동벨트", 60000),("타이밍벨트", 80000), ("배터리", 100000), ("디퍼런셜 오일", 120000)]
+    var sampleCar = CarInfo(carName: "샘플", carNumber: "123가4567", typeFuel: .gasoline, typeShift: .auto, mileage: 32000, insurance: [], maintenance: [])
+    var sampleInsurance = [Insurance(corpName: " ⃝ ⃝ 다이렉트", dateStart: Date().addingTimeInterval(-(365 * 24 * 3600) * 2), dateEnd: Date().addingTimeInterval(-(366 * 24 * 3600)),
+                                      payContract: 950000, mileageContract: 35000, callOfCorp: 56785678),
+                           Insurance(corpName: " ⃝ ⃝ 보험", dateStart: Date().addingTimeInterval(-(365 * 24 * 3600)), dateEnd: Date().addingTimeInterval(-24 * 3600),
+                                      payContract: 800000, mileageContract: 51000, callOfCorp: 12341234),
+                           Insurance(corpName: " ⃝ ⃝ 화재 보험", dateStart: Date(), dateEnd: Date().addingTimeInterval(365 * 24 * 3600),
+                                      payContract: 750000, mileageContract: 70000, callOfCorp: 12345678)]
     
-    var carList: [CarInfo] = []
+    var sampleHistory = [ManageHistory(mileage: 1200, changeDate: Date().addingTimeInterval(-(500 * 24 * 3600))),
+                         ManageHistory(mileage: 1500, changeDate: Date().addingTimeInterval(-(400 * 24 * 3600))),
+                         ManageHistory(mileage: 4000, changeDate: Date().addingTimeInterval(-(300 * 24 * 3600))),
+                         ManageHistory(mileage: 8200, changeDate: Date().addingTimeInterval(-(200 * 24 * 3600))),
+                         ManageHistory(mileage: 12200, changeDate: Date().addingTimeInterval(-(100 * 24 * 3600))),
+                         ManageHistory(mileage: 20100, changeDate: Date())]
     
-    func settingFirstMaintenance() -> [Maintenance]{
-        var maintenance: [Maintenance] = []
-            for i in 0..<itemList.count {
-                maintenance.append(Maintenance(id: i, nameOfItem: itemList[i].0, cycleMileage: itemList[i].1, historyManage: []))
-            }
-        return maintenance
-    }
+    var gasolineItemList = [("에어컨필터", 5000), ("엔진오일", 10000), ("에어필터", 10000), ("오일필터", 10000), ("와이퍼", 10000),
+                            ("점화플러그", 30000), ("연료필터", 60000), ("브레이크액", 30000), ("브레이크패드", 40000), ("미션오일", 40000),
+                            ("냉각수", 40000), ("파워스티어링 오일", 50000), ("타이어(전)", 50000), ("타이어(후)", 50000), ("구동벨트", 60000),
+                            ("타이밍벨트", 80000), ("배터리", 100000), ("디퍼런셜 오일", 120000)]
     
-    var carListSample: [CarInfo] = [
-        CarInfo(carName: "라세티", carNumber: "48소9953", typeFuel: .gasoline, typeShift: .Auto, mileage: 128999, maintenance: []),
-        CarInfo(carName: "트레일블레이저", carNumber: "000소0000", typeFuel: .diesel, typeShift: .Stick, mileage: 0, maintenance: [])
-    ] 
+    var dieselItemList = [("에어컨필터", 5000), ("엔진오일", 10000), ("에어필터", 10000), ("오일필터", 10000), ("와이퍼", 10000),
+                          ("점화플러그", 30000), ("연료필터", 30000), ("브레이크액", 30000), ("브레이크패드", 40000), ("미션오일", 40000),
+                          ("냉각수", 40000), ("파워스티어링 오일", 50000), ("타이어(전)", 50000), ("타이어(후)", 50000), ("구동벨트", 60000),
+                          ("타이밍벨트", 80000), ("배터리", 100000), ("디퍼런셜 오일", 120000)]
     
+    var tempGraphArray = Array(1...20).shuffled()
+    
+    var insuranceCorp: [InsuranceCorp] = [InsuranceCorp(name: "AXA손해보험", logo: "axa", callNumber: 15662266),
+                                          InsuranceCorp(name: "DB손해보험", logo: "db", callNumber: 15880100),
+                                          InsuranceCorp(name: "KB손해보험", logo: "kb", callNumber: 15440114),
+                                          InsuranceCorp(name: "MG손해보험", logo: "mg", callNumber: 15885959),
+                                          InsuranceCorp(name: "롯데손해보험", logo: "lotte", callNumber: 15883344),
+                                          InsuranceCorp(name: "메리츠화재", logo: "meritz", callNumber: 15665000),
+                                          InsuranceCorp(name: "삼성화재", logo: "samsung", callNumber: 15885114),
+                                          InsuranceCorp(name: "캐롯손해보험", logo: "carrot", callNumber: 15660300),
+                                          InsuranceCorp(name: "하나손해보험", logo: "hana", callNumber: 16443633),
+                                          InsuranceCorp(name: "한화손해보험", logo: "hanhwa", callNumber: 15668000),
+                                          InsuranceCorp(name: "현대해상", logo: "hyundai", callNumber: 15885656),
+                                          InsuranceCorp(name: "흥국화재", logo: "heungkuk", callNumber: 16881688)
+    ]
+                                          
+    
+    var insuranceSite = [
+        "https://m.idbins.com/FMMAIV0001.do",
+    ]
+    var myCarList: [CarInfo] = []
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        itemList.forEach { item in
-//            for i in 0..<carListSample.count {
-//                let nextID: Int = Maintenance.listSequence.next()!
-//                carListSample[i].maintenance.append(Maintenance(id: nextID, nameOfItem: item.0, cycleMileage: item.1))
-//            }
-//        }
+        Thread.sleep(forTimeInterval: 1.5)
         return true
     }
 

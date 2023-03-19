@@ -17,7 +17,8 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet var lblItemName: UILabel!
     @IBOutlet var lblCycle: UILabel!
     @IBOutlet var lblLastMileage: UILabel!
-    @IBOutlet var lblPeriod: UILabel!
+    @IBOutlet var lblPeriodStart: UILabel!
+    @IBOutlet var lblPeriodEnd: UILabel!
     @IBOutlet var viewGraphStick: UIView!
     
     // graph setting properties
@@ -39,22 +40,24 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     func settingInsurance(type: ContenType, periodHidden: Bool! = false, strEmpty: String! = "--", insurance : Insurance! = nil) {
-        lblPeriod.isHidden = periodHidden
+        lblPeriodStart.isHidden = periodHidden
+        lblPeriodEnd.isHidden = periodHidden
         switch type {
         case .empty:
             lblItemName.text = strEmpty
-            lblPeriod.text = "0000-00-00\n~ 0000-00-00"
+            lblPeriodStart.text = "--/--/--"
+            lblPeriodEnd.text = "~ --/--/--"
         case .last:
-            lblItemName.text = "\(insurance.corpName)"
-            lblPeriod.text = "\(Funcs.formatteredDate(date: insurance.dateStart))\n~\(Funcs.formatteredDate(date: insurance.dateEnd))"
+            lblItemName.text = "\(insurance?.corpName ?? "__")"
+            lblPeriodStart.text = "\(Funcs.formatteredDate(date: insurance?.dateStart ?? Date()))"
+            lblPeriodEnd.text = "~ \(Funcs.formatteredDate(date: insurance?.dateEnd ?? Date()))"
         }
-        lblItemName.font = .systemFont(ofSize: 17, weight: .semibold, width: .condensed)
+        lblItemName.font = .systemFont(ofSize: 17, weight: .semibold)
         lblItemName.textColor = .label
-        lblPeriod.font = .systemFont(ofSize: 13, weight: .medium)
-        lblPeriod.textColor = .secondaryLabel
-        lblPeriod.numberOfLines = 2
-        lblPeriod.textAlignment = .left
-        lblPeriod.sizeToFit()
+        [lblPeriodStart, lblPeriodEnd].forEach({
+            $0.font = .systemFont(ofSize: 13, weight: .medium)
+            $0.textColor = .secondaryLabel
+        })
     }
     
     func settingItem(type: ContenType, lastHidden: Bool! = false, itemName: String, strEmpty: String! = "--", lastHistory: ManageHistory! = nil, gapMileage: Int! = nil, cycle: Int! = nil) {
@@ -66,9 +69,9 @@ class HomeTableViewCell: UITableViewCell {
             lblLastMileage.text = "(last: \(strEmpty ?? "--") km)"
         case .last:
             lblCycle.text = gapMileage < cycle ? "\(cycle - gapMileage) km 남음" : "\(-(cycle - gapMileage)) km 초과"
-            lblLastMileage.text = "(last: \(lastHistory.mileage) km)"
+            lblLastMileage.text = "(last: \(Funcs.addCommaToNumber(number: lastHistory.mileage)) km)"
         }
-        lblItemName.font = .systemFont(ofSize: 17, weight: .semibold, width: .condensed)
+        lblItemName.font = .systemFont(ofSize: 17, weight: .semibold)
         lblItemName.textColor = .label
         lblCycle.font = .systemFont(ofSize: 15, weight: .medium)
         lblCycle.textColor = .secondaryLabel

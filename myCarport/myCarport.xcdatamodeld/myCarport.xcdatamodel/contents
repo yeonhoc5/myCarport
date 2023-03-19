@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CarInfo" representedClassName="CarInfoMO" syncable="YES" codeGenerationType="class">
+        <attribute name="carName" attributeType="String"/>
+        <attribute name="carNumber" attributeType="String"/>
+        <attribute name="mileage" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="typeFuel" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="typeShift" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="insurance" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Insurance" inverseName="carInfo" inverseEntity="Insurance"/>
+        <relationship name="maintenance" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Maintenance" inverseName="carInfo" inverseEntity="Maintenance"/>
+    </entity>
+    <entity name="Insurance" representedClassName="InsuranceMO" syncable="YES" codeGenerationType="class">
+        <attribute name="callOfCorp" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="corpName" attributeType="String"/>
+        <attribute name="dateEnd" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateStart" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="mileageContract" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="payContract" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="carInfo" maxCount="1" deletionRule="Nullify" destinationEntity="CarInfo" inverseName="insurance" inverseEntity="CarInfo"/>
+    </entity>
+    <entity name="Maintenance" representedClassName="MaintenanceMO" syncable="YES" codeGenerationType="class">
+        <attribute name="cycleMileage" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="cyclePeriod" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="nameOfItem" attributeType="String"/>
+        <relationship name="carInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CarInfo" inverseName="maintenance" inverseEntity="CarInfo"/>
+        <relationship name="manageHistory" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ManageHistory" inverseName="maintenance" inverseEntity="ManageHistory"/>
+    </entity>
+    <entity name="ManageHistory" representedClassName="ManageHistoryMO" syncable="YES" codeGenerationType="class">
+        <attribute name="changeDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="mileage" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="maintenance" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Maintenance" inverseName="manageHistory" inverseEntity="Maintenance"/>
+    </entity>
 </model>

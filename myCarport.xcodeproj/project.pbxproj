@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A5F047929B7141100A0AD04 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5F047829B7141100A0AD04 /* Protocols.swift */; };
 		1A624A972938322800BC2876 /* Funcs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A624A962938322800BC2876 /* Funcs.swift */; };
 		1A624A99293CADD600BC2876 /* CorpNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A624A98293CADD600BC2876 /* CorpNameCell.swift */; };
 		1A624A9B293E000500BC2876 /* ItemListTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A624A9A293E000500BC2876 /* ItemListTableController.swift */; };
@@ -25,6 +26,10 @@
 		1AAC5F11291BC3FA001CB9E2 /* InsuranceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5F10291BC3FA001CB9E2 /* InsuranceCell.swift */; };
 		1AAC5F13291BC47D001CB9E2 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5F12291BC47D001CB9E2 /* SettingCell.swift */; };
 		1AAC5F15291BC4DA001CB9E2 /* ItemDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5F14291BC4DA001CB9E2 /* ItemDetailCell.swift */; };
+		1AB7892E29C6B70500414A03 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AB7892D29C6B70500414A03 /* Launch Screen.storyboard */; };
+		1AB7893029C6F6C800414A03 /* InsuranceCorp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB7892F29C6F6C800414A03 /* InsuranceCorp.swift */; };
+		1ACD85F329AF659A000D83A4 /* EnumList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACD85F229AF659A000D83A4 /* EnumList.swift */; };
+		1ACD85F529B09B19000D83A4 /* CarInfoDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACD85F429B09B19000D83A4 /* CarInfoDAO.swift */; };
 		1AF6C2F729110E720046DC6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2F629110E720046DC6B /* AppDelegate.swift */; };
 		1AF6C2F929110E720046DC6B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2F829110E720046DC6B /* SceneDelegate.swift */; };
 		1AF6C2FB29110E720046DC6B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF6C2FA29110E720046DC6B /* HomeViewController.swift */; };
@@ -38,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A5F047829B7141100A0AD04 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		1A624A962938322800BC2876 /* Funcs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Funcs.swift; sourceTree = "<group>"; };
 		1A624A98293CADD600BC2876 /* CorpNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorpNameCell.swift; sourceTree = "<group>"; };
 		1A624A9A293E000500BC2876 /* ItemListTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListTableController.swift; sourceTree = "<group>"; };
@@ -55,6 +61,10 @@
 		1AAC5F10291BC3FA001CB9E2 /* InsuranceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceCell.swift; sourceTree = "<group>"; };
 		1AAC5F12291BC47D001CB9E2 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		1AAC5F14291BC4DA001CB9E2 /* ItemDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailCell.swift; sourceTree = "<group>"; };
+		1AB7892D29C6B70500414A03 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		1AB7892F29C6F6C800414A03 /* InsuranceCorp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceCorp.swift; sourceTree = "<group>"; };
+		1ACD85F229AF659A000D83A4 /* EnumList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumList.swift; sourceTree = "<group>"; };
+		1ACD85F429B09B19000D83A4 /* CarInfoDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarInfoDAO.swift; sourceTree = "<group>"; };
 		1AF6C2F329110E720046DC6B /* myCarport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myCarport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AF6C2F629110E720046DC6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AF6C2F829110E720046DC6B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,14 +137,14 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
-		1AAC5EF8291B7EB9001CB9E2 /* Home */ = {
+		1AAC5EF8291B7EB9001CB9E2 /* HomeScenes */ = {
 			isa = PBXGroup;
 			children = (
 				1AF6C2FA29110E720046DC6B /* HomeViewController.swift */,
 				1AF6C311291134350046DC6B /* HomeTableViewCell.swift */,
 				1AF6C316291243530046DC6B /* HomeCollectionViewCell.swift */,
 			);
-			path = Home;
+			path = HomeScenes;
 			sourceTree = "<group>";
 		};
 		1AAC5EF9291B7EBE001CB9E2 /* SettingView */ = {
@@ -178,8 +188,9 @@
 				1AF6C2F629110E720046DC6B /* AppDelegate.swift */,
 				1AF6C2F829110E720046DC6B /* SceneDelegate.swift */,
 				1AF6C2FC29110E720046DC6B /* Main.storyboard */,
+				1AB7892D29C6B70500414A03 /* Launch Screen.storyboard */,
 				1AF6C30D291117BF0046DC6B /* Scenes */,
-				1AF6C3152911FCDA0046DC6B /* Data */,
+				1AF6C3152911FCDA0046DC6B /* Model */,
 				1AAC5EED291A49A8001CB9E2 /* CustomView */,
 				1A6E43A2292F8E2400D0873B /* Extension */,
 				1AF6C30229110E730046DC6B /* Assets.xcassets */,
@@ -193,7 +204,7 @@
 		1AF6C30D291117BF0046DC6B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				1AAC5EF8291B7EB9001CB9E2 /* Home */,
+				1AAC5EF8291B7EB9001CB9E2 /* HomeScenes */,
 				1A624B082940524D00BC2876 /* AddAndEditCarScenes */,
 				1AAC5EF9291B7EBE001CB9E2 /* SettingView */,
 				1AAC5F00291B833E001CB9E2 /* DetailView */,
@@ -201,15 +212,19 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		1AF6C3152911FCDA0046DC6B /* Data */ = {
+		1AF6C3152911FCDA0046DC6B /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				1AF6C3132911FCD30046DC6B /* CarInfo.swift */,
-				1A7FDB612924EF7300474DB3 /* Maintenance.swift */,
 				1A7FDB632924F09600474DB3 /* Insurance.swift */,
+				1A7FDB612924EF7300474DB3 /* Maintenance.swift */,
+				1AB7892F29C6F6C800414A03 /* InsuranceCorp.swift */,
+				1ACD85F429B09B19000D83A4 /* CarInfoDAO.swift */,
 				1A624A962938322800BC2876 /* Funcs.swift */,
+				1ACD85F229AF659A000D83A4 /* EnumList.swift */,
+				1A5F047829B7141100A0AD04 /* Protocols.swift */,
 			);
-			path = Data;
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +293,7 @@
 			files = (
 				1AF6C30629110E730046DC6B /* LaunchScreen.storyboard in Resources */,
 				1AF6C30329110E730046DC6B /* Assets.xcassets in Resources */,
+				1AB7892E29C6B70500414A03 /* Launch Screen.storyboard in Resources */,
 				1AF6C2FE29110E720046DC6B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,15 +316,19 @@
 				1AF6C312291134350046DC6B /* HomeTableViewCell.swift in Sources */,
 				1AF6C2F729110E720046DC6B /* AppDelegate.swift in Sources */,
 				1AF6C2F929110E720046DC6B /* SceneDelegate.swift in Sources */,
+				1AB7893029C6F6C800414A03 /* InsuranceCorp.swift in Sources */,
 				1AAC5EF7291B7EB3001CB9E2 /* SettingViewController.swift in Sources */,
+				1A5F047929B7141100A0AD04 /* Protocols.swift in Sources */,
 				1AAC5F13291BC47D001CB9E2 /* SettingCell.swift in Sources */,
 				1AAC5F15291BC4DA001CB9E2 /* ItemDetailCell.swift in Sources */,
 				1A624A99293CADD600BC2876 /* CorpNameCell.swift in Sources */,
 				1AAC5F04291B8390001CB9E2 /* AddAndEditCarViewController.swift in Sources */,
+				1ACD85F329AF659A000D83A4 /* EnumList.swift in Sources */,
 				1A7FDB642924F09600474DB3 /* Insurance.swift in Sources */,
 				1AAC5EEF291A49DF001CB9E2 /* CustomLabel.swift in Sources */,
 				1AF6C3142911FCD30046DC6B /* CarInfo.swift in Sources */,
 				1AAC5F02291B8378001CB9E2 /* InsuranceEditViewController.swift in Sources */,
+				1ACD85F529B09B19000D83A4 /* CarInfoDAO.swift in Sources */,
 				1AAC5EFD291B831F001CB9E2 /* ItemDetailViewController.swift in Sources */,
 				1AAC5EFB291B7F51001CB9E2 /* SignAndLoginViewController.swift in Sources */,
 				1AF6C30129110E720046DC6B /* myCarport.xcdatamodeld in Sources */,
@@ -462,11 +482,13 @@
 				DEVELOPMENT_TEAM = BAX6K368WN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = myCarport/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "마이카포트";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -474,9 +496,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yeonhoc5.myCarport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -490,11 +515,13 @@
 				DEVELOPMENT_TEAM = BAX6K368WN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = myCarport/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "마이카포트";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -502,9 +529,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yeonhoc5.myCarport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
