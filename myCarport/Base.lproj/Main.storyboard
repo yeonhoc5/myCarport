@@ -316,9 +316,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="myCarport" id="Onr-qd-bRt">
-                        <barButtonItem key="leftBarButtonItem" id="4OR-RU-FEa">
-                            <imageReference key="image" image="info.circle" catalog="system" symbolScale="medium"/>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="7i3-Xm-cJK">
                             <imageReference key="image" image="gearshape.fill" catalog="system" symbolScale="medium"/>
                             <connections>
@@ -1466,7 +1463,6 @@
         <image name="arrow.clockwise" catalog="system" width="113" height="128"/>
         <image name="arrow.up" catalog="system" width="118" height="128"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
-        <image name="info.circle" catalog="system" width="128" height="123"/>
         <image name="logo_apple" width="33.333332061767578" height="33.333332061767578"/>
         <image name="logo_google" width="33.333332061767578" height="33.333332061767578"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
