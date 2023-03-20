@@ -93,11 +93,11 @@ class CarInfoDAO {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let recommenItemList = object.typeFuel == 0 ? appDelegate.gasolineItemList : appDelegate.dieselItemList
+        print(recommenItemList)
         for item in recommenItemList {
             let maintenanceObject = NSEntityDescription.insertNewObject(forEntityName: "Maintenance", into: context) as! MaintenanceMO
             maintenanceObject.nameOfItem = item.0
             maintenanceObject.cycleMileage = Int64(item.1)
-            
             object.addToMaintenance(maintenanceObject)
         }
      
@@ -185,16 +185,28 @@ class CarInfoDAO {
     
     // 4-1. 차령 정보 수정
     func modifyCarInfo(carID: NSManagedObjectID, carInfo: CarInfo) -> Bool {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let object = self.context.object(with: carID) as! CarInfoMO
         object.carName = carInfo.carName
         object.carNumber = carInfo.carNumber
+        if object.typeFuel != carInfo.typeFuel.rawValue {
+            let maintenanceData = object.maintenance?.array as! [MaintenanceMO]
+            let itemList = carInfo.typeFuel.rawValue == 0 ? appDelegate.gasolineItemList : appDelegate.dieselItemList
+            
+            for list in itemList {
+                if let item = maintenanceData.filter({$0.nameOfItem == list.0}).first {
+                    item.cycleMileage = Int64(list.1)
+                }
+                
+            }
+        }
         object.typeFuel = carInfo.typeFuel.rawValue
         object.typeShift = carInfo.typeShift.rawValue
         object.mileage = Int64(carInfo.mileage)
         
         do {
             try self.context.save()
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.myCarList = self.fetch()
             return true
         } catch let e as NSError {

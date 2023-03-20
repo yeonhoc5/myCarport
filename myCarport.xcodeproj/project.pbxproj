@@ -26,7 +26,6 @@
 		1AAC5F11291BC3FA001CB9E2 /* InsuranceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5F10291BC3FA001CB9E2 /* InsuranceCell.swift */; };
 		1AAC5F13291BC47D001CB9E2 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5F12291BC47D001CB9E2 /* SettingCell.swift */; };
 		1AAC5F15291BC4DA001CB9E2 /* ItemDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC5F14291BC4DA001CB9E2 /* ItemDetailCell.swift */; };
-		1AB7892E29C6B70500414A03 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AB7892D29C6B70500414A03 /* Launch Screen.storyboard */; };
 		1AB7893029C6F6C800414A03 /* InsuranceCorp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB7892F29C6F6C800414A03 /* InsuranceCorp.swift */; };
 		1ACD85F329AF659A000D83A4 /* EnumList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACD85F229AF659A000D83A4 /* EnumList.swift */; };
 		1ACD85F529B09B19000D83A4 /* CarInfoDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACD85F429B09B19000D83A4 /* CarInfoDAO.swift */; };
@@ -61,7 +60,6 @@
 		1AAC5F10291BC3FA001CB9E2 /* InsuranceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceCell.swift; sourceTree = "<group>"; };
 		1AAC5F12291BC47D001CB9E2 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		1AAC5F14291BC4DA001CB9E2 /* ItemDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailCell.swift; sourceTree = "<group>"; };
-		1AB7892D29C6B70500414A03 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		1AB7892F29C6F6C800414A03 /* InsuranceCorp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceCorp.swift; sourceTree = "<group>"; };
 		1ACD85F229AF659A000D83A4 /* EnumList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumList.swift; sourceTree = "<group>"; };
 		1ACD85F429B09B19000D83A4 /* CarInfoDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarInfoDAO.swift; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 				1AF6C2F629110E720046DC6B /* AppDelegate.swift */,
 				1AF6C2F829110E720046DC6B /* SceneDelegate.swift */,
 				1AF6C2FC29110E720046DC6B /* Main.storyboard */,
-				1AB7892D29C6B70500414A03 /* Launch Screen.storyboard */,
 				1AF6C30D291117BF0046DC6B /* Scenes */,
 				1AF6C3152911FCDA0046DC6B /* Model */,
 				1AAC5EED291A49A8001CB9E2 /* CustomView */,
@@ -293,7 +290,6 @@
 			files = (
 				1AF6C30629110E730046DC6B /* LaunchScreen.storyboard in Resources */,
 				1AF6C30329110E730046DC6B /* Assets.xcassets in Resources */,
-				1AB7892E29C6B70500414A03 /* Launch Screen.storyboard in Resources */,
 				1AF6C2FE29110E720046DC6B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -483,8 +479,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = myCarport/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "마이카포트";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -516,8 +513,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = myCarport/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "마이카포트";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";

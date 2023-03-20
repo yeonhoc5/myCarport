@@ -366,7 +366,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                     if animationCount[indexOfCar][index] == item.historyManage.count {
                         cell.viewGraphStick.frame.size.width = currentValue < compareValue ? cell.frame.width * CGFloat(currentValue) / CGFloat(compareValue) : cell.frame.width
                     } else {
-                        UIView.animate(withDuration: 1, delay: 0.4) {
+                        UIView.animate(withDuration: 1, delay: 0) {
                             cell.viewGraphStick.frame.size.width = currentValue < compareValue ? cell.frame.width * CGFloat(currentValue) / CGFloat(compareValue) : cell.frame.width
                             self.animationCount[self.indexOfCar][index] = item.historyManage.count
                         }
@@ -454,6 +454,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
                     let beforeNum = indexOfCar
                     indexOfCar = indexPath.row
                     configCarInfoData(carNum: indexOfCar, beforNum: beforeNum, animationRange: .all)
+                    configTableView()
                 }
             } else {
                 selectedNumBefoAdd = indexOfCar

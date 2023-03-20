@@ -102,6 +102,7 @@ class InsuranceDetailViewController: UITableViewController {
             case 0:
                 switch indexPath.row {
                 case 0: cell.settingCellCorp(type: .empty, strEmpty: "현재 등록된 보험 정보가 없습니다.")
+                    cell.isUserInteractionEnabled = false
                 case 1: cell.settingCellMileage(type: .empty)
                     cell.isUserInteractionEnabled = false
                 case 2: cell.settingCellPay(type: .empty)
@@ -199,9 +200,6 @@ class InsuranceDetailViewController: UITableViewController {
                     EdictVC.indexOfInsurance = insurances.count - 1
                     EdictVC.titleRegistBtn = "수정"
                     present(EdictVC, animated: true)
-                } else {
-                    emptyAlert()
-                    tableView.reloadRows(at: [indexPath], with: .automatic)
                 }
             case 1:
                 if let index = appDelegate.insuranceCorp.firstIndex(where: { $0.name == insurances.last?.corpName }) {

@@ -162,7 +162,6 @@ extension ItemDetailViewController: UICollectionViewDataSource, UICollectionView
         let identifier: String
         let bgrColor = UIColor.clear
         
-        
         let history = maintenance == nil ? appDelegate.sampleHistory : maintenance?.historyManage
         
         if history?.count == 0 {

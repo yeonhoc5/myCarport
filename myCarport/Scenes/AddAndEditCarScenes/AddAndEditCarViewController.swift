@@ -87,13 +87,14 @@ class AddAndEditCarViewController: UIViewController {
         
     }
     @objc func checkChange() {
-        if carInfo != nil && (carInfo?.typeFuel.rawValue ?? 0 != sgmCarFuel.selectedSegmentIndex
-                              || carInfo?.typeShift.rawValue ?? 0 != sgmCarType.selectedSegmentIndex) {
-            self.btnRegist.isEnabled = true
-        } else {
-            self.btnRegist.isEnabled = false
+        if carInfo != nil {
+            if (sgmCarFuel.selectedSegmentIndex != carInfo?.typeFuel.rawValue ?? 0
+                || sgmCarType.selectedSegmentIndex != carInfo?.typeShift.rawValue ?? 0) {
+                self.btnRegist.isEnabled = true
+            } else {
+                self.btnRegist.isEnabled = false
+            }
         }
-        
     }
     
     
