@@ -19,11 +19,13 @@ class InsuranceDetailViewController: UITableViewController {
         settingTableView()
         settingNavigationBar()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
+    // 뷰 벗어날 시 네비게이션 바 컬러 원래대로(세팅뷰와 동일)
+    override func viewWillDisappear(_ animated: Bool) {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor.systemGray6
+        appearance.shadowColor = UIColor.clear
+        navigationController?.navigationBar.standardAppearance = appearance
     }
-    
     
     
     // 보험 정보 불러오기
@@ -39,31 +41,39 @@ class InsuranceDetailViewController: UITableViewController {
     }
     // 네비게이션 세팅
     func settingNavigationBar() {
-        let btnRenewInsurace = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(renewInsurance))
+        let btnRenewInsurace = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(addInsurance))
         navigationItem.rightBarButtonItem = btnRenewInsurace
         navigationItem.title = "\(carInfo?.carName ?? "샘플 차량")"
+        // 스크롤 시 네비게이션바 컬러 세팅
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor.systemGray6
+        navigationController?.navigationBar.standardAppearance = appearance
     }
-    @objc func renewInsurance() {
+    @objc func addInsurance() {
         if let _ = self.carInfo {
-            guard let renewInsuranceVC = storyboard?.instantiateViewController(withIdentifier: "InsuranceEditViewController") as? InsuranceEditViewController else { return }
-            renewInsuranceVC.carInfo = self.carInfo
-            renewInsuranceVC.titleInsurance = "보험 갱신"
-            renewInsuranceVC.modalPresentationStyle = .fullScreen
-            renewInsuranceVC.delegate = self
-            navigationController?.present(renewInsuranceVC, animated: true)
+            guard let addInsuranceVC = storyboard?.instantiateViewController(withIdentifier: "InsuranceEditViewController") as? InsuranceEditViewController else { return }
+            addInsuranceVC.carInfo = self.carInfo
+            addInsuranceVC.titleInsurance = "보험 갱신"
+            addInsuranceVC.modalPresentationStyle = .fullScreen
+            addInsuranceVC.delegate = self
+            navigationController?.present(addInsuranceVC, animated: true)
         } else {
             emptyAlert()
         }
     }
     // 알럿 1. 차량이 없을 경우
     func emptyAlert() {
-        let emptyAlert = UIAlertController(title: "등록된 차량이 없습니다.", message: "차량 등록 후 이용해 주세요.", preferredStyle: .alert)
+        let emptyAlert = UIAlertController(title: "등록된 차량이 없습니다.",
+                                           message: "차량 등록 후 이용해 주세요.",
+                                           preferredStyle: .alert)
         emptyAlert.addAction(UIAlertAction(title: "확인", style: .default))
         present(emptyAlert, animated: true)
     }
     // 알럿 2. 보험 내역이 1개일 경우
     func countAlert() {
-        let emptyAlert = UIAlertController(title: "이전 가입 내역이 없습니다.", message: "현재 보험 정보를 확인해 주세요.", preferredStyle: .alert)
+        let emptyAlert = UIAlertController(title: "이전 가입 내역이 없습니다.",
+                                           message: "현재 보험 정보를 확인해 주세요.",
+                                           preferredStyle: .alert)
         emptyAlert.addAction(UIAlertAction(title: "확인", style: .default))
         present(emptyAlert, animated: true)
     }
@@ -97,7 +107,7 @@ class InsuranceDetailViewController: UITableViewController {
         }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifer) as? InsuranceCell else { return UITableViewCell() }
         
-        if insurances.isEmpty {
+        if self.insurances.count == 0 {
             switch indexPath.section {
             case 0:
                 switch indexPath.row {
@@ -123,13 +133,13 @@ class InsuranceDetailViewController: UITableViewController {
                 cell.layer.borderWidth = 0.5
             default: break
             }
-            
         } else {
             let insurance = insurances.last
             switch indexPath.section {
             case 0:
                 switch indexPath.row {
                 case 0: cell.settingCellCorp(type: .last, insurance: insurance)
+                    cell.isUserInteractionEnabled = true
                 case 1: cell.settingCellMileage(type: .last, insurance: insurance)
                     cell.isUserInteractionEnabled = false
                 case 2: cell.settingCellPay(type: .last, insurance: insurance)
@@ -183,23 +193,24 @@ class InsuranceDetailViewController: UITableViewController {
         switch section {
         case 0: return "현재보험"
         case 1: return ""
-        default: return "보험 가입 내역"
+        default: return "지난 가입 내역"
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         if let _ = carInfo {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             switch indexPath.section {
             case 0:
                 if insurances.count > 0 {
-                    guard let EdictVC = storyboard?.instantiateViewController(withIdentifier: "InsuranceEditViewController") as? InsuranceEditViewController else { return }
-                    EdictVC.delegate = self
+                    guard let edictVC = storyboard?.instantiateViewController(withIdentifier: "InsuranceEditViewController") as? InsuranceEditViewController else { return }
+                    edictVC.delegate = self
                     let insuranceToEdit = insurances.last?.objectID == nil ? appDelegate.myCarList.filter({$0.objectID == self.carInfo?.objectID}).first?.insurance.last : self.insurances.last
-                    EdictVC.insurance = insuranceToEdit
-                    EdictVC.indexOfInsurance = insurances.count - 1
-                    EdictVC.titleRegistBtn = "수정"
-                    present(EdictVC, animated: true)
+                    edictVC.insurance = insuranceToEdit
+                    edictVC.indexOfInsurance = insurances.count - 1
+                    edictVC.titleRegistBtn = "수정"
+                    present(edictVC, animated: true)
                 }
             case 1:
                 if let index = appDelegate.insuranceCorp.firstIndex(where: { $0.name == insurances.last?.corpName }) {
@@ -213,6 +224,7 @@ class InsuranceDetailViewController: UITableViewController {
                 }
             case 2:
                 if insurances.count > 1 {
+                    print("[\(indexPath.section)섹션] \(indexPath.row + 1)번째 보험 수정 들어감")
                     guard let EdictVC = storyboard?.instantiateViewController(withIdentifier: "InsuranceEditViewController") as? InsuranceEditViewController else { return }
                     let nextIndex = insurances.count - (indexPath.row + 2)
                     EdictVC.delegate = self
@@ -269,15 +281,23 @@ class InsuranceDetailViewController: UITableViewController {
             }
         }
     }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+    }
+    
 }
 
 
 extension InsuranceDetailViewController: EditInsurance {
-    func editInsurance(type: EditType, index: Int! = 0, insurance: Insurance) {
+    func editInsurance(type: EditType, index: Int! = 0, insurance: Insurance! = nil) {
 //        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         switch type {
         case .add:
-            self.insurances.append(insurance)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            if let renewedCar = appDelegate.myCarList.filter({ $0.objectID == self.carInfo?.objectID }).first {
+                self.insurances = renewedCar.insurance
+            }
         case .modify:
             if let index = index {
                 let originalObjectID = insurance.objectID
@@ -285,7 +305,7 @@ extension InsuranceDetailViewController: EditInsurance {
                 self.insurances[index].objectID = originalObjectID
             }
         }
-        self.insurances =  insurances.sorted(by: {$0.dateStart! < $1.dateStart!})
+        self.insurances = insurances.sorted(by: {$0.dateStart! < $1.dateStart!})
         UIView.animate(withDuration: 1, delay: 0.5) {
             self.tableView.reloadData()
         }

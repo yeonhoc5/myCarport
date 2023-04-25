@@ -42,6 +42,7 @@ class HomeViewController: UIViewController {
     // property 1-5. add 버튼 클릭 시 차를 추가하지 않고 뷰로 돌아올 시의 인덱스 임시 기억 값
     var selectedNumBefoAdd: Int = 0
     
+    
     //MARK: - 2. [View Did Load] view setting & [View Will Appear]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,25 +53,15 @@ class HomeViewController: UIViewController {
         configCarInfoView()
         configTableView()
         configCollectionView()
+        print(myCarList.compactMap({$0.orderID}))
     }
     //
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.myCarList = appDelegate.myCarList
-        if myCarList.isEmpty {
-            settingInitialData()
-        } else if indexOfCar == myCarList.count {
-            if selectedNumBefoAdd < myCarList.count {
-                indexOfCar = selectedNumBefoAdd
-            } else {
-                indexOfCar = myCarList.count - 1
-            }
-        } else {
-            self.configCarInfoData(carNum: self.indexOfCar)
-            configTableViewData()
-        }
-        self.collectionView.reloadData()
+        myCarList = appDelegate.myCarList
+        checkIndexOfCar()
     }
+    
     
     //MARK: - 3.View Functions
     // 초기 진입 시/차량 모두 삭제 시 animationcount & cyclelist 설정
@@ -116,7 +107,7 @@ class HomeViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
-    // 상단뷰 세팅
+    // 상단뷰 세팅(Config Functions)
     func configCarInfoView() {
         setTopBackgroundView()
         setMainInfoView()
@@ -181,10 +172,9 @@ class HomeViewController: UIViewController {
         }))
         return alert
     }
-//    func randorandom
     
+    // Setting Page 이동 준비
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        selectedNumBefoAdd = 0
         if segue.identifier == "segueSetting" {
             if let settingVC = segue.destination as? SettingViewController {
                 settingVC.myCarList = self.myCarList
@@ -192,11 +182,25 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    // Setting Page에서 돌아올 시 차량 목록 변화 확인
+    func checkIndexOfCar() {
+        if myCarList.isEmpty {
+            settingInitialData()
+        } else if indexOfCar >= myCarList.count {
+            if selectedNumBefoAdd < myCarList.count {
+                indexOfCar = selectedNumBefoAdd
+            } else {
+                indexOfCar = myCarList.count - 1
+            }
+        }
+        self.collectionView.reloadData()
+        configTableViewData()
+        self.configCarInfoData(carNum: indexOfCar)
+    }
 }
 
 
-
-// MARK: - 4. [Extension] Config View
+// MARK: - 4. [Extension] Config Functions
 extension HomeViewController {
     func configNavigation() {
         // titleView 커스터마이징
@@ -256,9 +260,21 @@ extension HomeViewController {
 
 // MARK: - 5. [Extension] Config TableView
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
-    // 섹션 정보
+    
+    // MARK: 5-1. layout
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    // MARK: 5-2. Data Source
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.cycleList.count + 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if myCarList.isEmpty {
+            return section == 0 ? 1 : appDelegate.gasolineItemList.filter{$0.1 == cycleList[section - 1]}.count
+        } else {
+            return section == 0 ? 1 : myCarList[indexOfCar].maintenance.filter{$0.cycleMileage == cycleList[section - 1]}.count
+        }
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
@@ -267,11 +283,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             return "주기 : \(Funcs.numberToString(number: cycleList[section - 1]))"
         }
     }
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if let headerView = view as? UITableViewHeaderFooterView {
-            headerView.textLabel?.text = headerView.textLabel?.text?.lowercased()
-        }
-    }
+    // MARK: 5-3. "유지관리 항목" FooterView 활용
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return section == 0 ? 60:20
     }
@@ -281,20 +293,13 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         footerView.addSubview(title)
         return section == 0 ? footerView : nil
     }
-    // 셀 정보
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if myCarList.isEmpty {
-            return section == 0 ? 1 : appDelegate.gasolineItemList.filter{$0.1 == cycleList[section - 1]}.count
-        } else {
-            return section == 0 ? 1 : myCarList[indexOfCar].maintenance.filter{$0.cycleMileage == cycleList[section - 1]}.count
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.textLabel?.text = headerView.textLabel?.text?.lowercased()
         }
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
-    
+    // MARK: 5-4. cell 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let identifier: String = indexPath.section == 0 ? "HomeCellInsurance" : "HomeCellItem"
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? HomeTableViewCell else { return UITableViewCell() }
         // 공통 레이아웃
@@ -377,7 +382,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         cell.viewGraphStick.backgroundColor = cell.viewGraphStick.frame.width == cell.frame.width ? .systemPink.withAlphaComponent(0.4): .systemTeal.withAlphaComponent(0.4)
         return cell
     }
-    
+    // MARK: 5-4. Actions
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
@@ -411,20 +416,20 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: - 6. [Extension] Config CollectionView
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    // Layout
+    // MARK: 6-1. Layout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 30, height: 30)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 7
     }
-    // Data Source
+    // MARK: 6-2. Data Source
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let supplCellCount = myCarList.isEmpty ? 2:1
-        return myCarList.count + supplCellCount
+        let additionalCell = myCarList.isEmpty ? 2:1
+        return myCarList.count + additionalCell
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell", for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
@@ -437,42 +442,77 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
             name = indexPath.row < myCarList.count ? myCarList[indexPath.row].carName : "+"
             bgColor = indexOfCar == indexPath.row ? .systemTeal.withAlphaComponent(0.8) : .systemGray4
         }
-        cell.settingCell(name: name)
-        cell.backgroundColor = bgColor
-        cell.layer.cornerRadius = 10
+        cell.settingCell(name: name, background: bgColor)
         return cell
     }
+    // MARK: 6-3. Actions
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let AddCarVC = storyboard?.instantiateViewController(withIdentifier: "AddCarViewController") as? AddAndEditCarViewController else { return }
-        AddCarVC.modalPresentationStyle = .fullScreen
-        AddCarVC.delegate = self
-        DispatchQueue.main.async {
-            collectionView.cellForItem(at: indexPath)?.backgroundColor = .systemTeal
+        // step 1. 선택한 cell의 색상 바꾸기
+        if indexPath.row <= myCarList.count {
+            DispatchQueue.main.async {
+                collectionView.cellForItem(at: indexPath)?.backgroundColor = .systemTeal
+            }
         }
-            if indexPath.row < myCarList.count {
-                if indexOfCar != indexPath.row {
-                    let beforeNum = indexOfCar
-                    indexOfCar = indexPath.row
-                    configCarInfoData(carNum: indexOfCar, beforNum: beforeNum, animationRange: .all)
-                    configTableView()
-                }
-            } else {
+        // step 2. 작동 내용
+        // 2-1. 등록된 차량 cell을 눌렀을 경우
+        if indexPath.row < myCarList.count {
+        // (이미 눌러진 cell을 다시 누를 경우 아무것도 처리하지 않음)
+            if indexOfCar != indexPath.row {
+                let beforeNum = indexOfCar
+                indexOfCar = indexPath.row
+                configCarInfoData(carNum: indexOfCar, beforNum: beforeNum, animationRange: .all)
+                configTableView()
+            }
+        } else {
+            if indexPath.row == myCarList.count {
+            // 2-2. 차량 추가 버튼(+)을 눌렀을 경우
+                guard let AddCarVC = storyboard?.instantiateViewController(withIdentifier: "AddCarViewController") as? AddAndEditCarViewController else { return }
+                AddCarVC.modalPresentationStyle = .fullScreen
+                AddCarVC.delegate = self
+                // (차량을 추가한 case / 차량을 추가하지 않은 case 구분)
                 selectedNumBefoAdd = indexOfCar
                 indexOfCar = myCarList.count
                 self.present(AddCarVC, animated: true)
-                
             }
+        }
     }
 }
 
 
+
+// MARK: - 7. [Protocol] 차량 추가/삭제/순서조정 시
 extension HomeViewController: ChangeAnimationCount {
+    // 차량 추가 시 애니메이션 카운트 추가하기
     func addAnimationCount(count: Int) {
         animationCount.append(Array(repeating: -1, count: count))
     }
-    
+    // 차량 삭제 시 해당 애니메이션 카운트 배열 지우기
     func removeAnimationCount(at: Int) {
         animationCount.remove(at: at)
+    }
+}
+
+extension HomeViewController: OrderChanged {
+    func orderChanged() {
+    // step 1. orderID 재저장한 자동차 목록 불러오기
+        appDelegate.myCarList = dao.fetch()
+        self.myCarList = appDelegate.myCarList
+    // step 2. 애니메이션 카운트 재생산하기 (애니메이션 작동하지 않도록)
+        animationCount.removeAll()
+        for car in myCarList {
+            var array = [car.insurance.count]
+            for item in car.maintenance {
+                array.append(item.historyManage.count)
+            }
+            animationCount.append(array)
+        }
+        print("animationCount Setting Done")
+    // step 3. 콜렉션 뷰가 가지고 있던 자동차 정보 인덱스 체크하기
+        self.checkIndexOfCar()
+        UIView.animate(withDuration: 0.25) {
+            self.collectionView.reloadData()
+            self.tableView.reloadData()
+        }
     }
 }
 

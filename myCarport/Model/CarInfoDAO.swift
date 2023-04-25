@@ -29,6 +29,11 @@ class CarInfoDAO {
             if resultSet.count > 0 {
                 for data in resultSet {
                     var carInfo = CarInfo()
+                    if myCarList.compactMap({ $0.orderID }).contains(Int(data.orderID)) {
+                        carInfo.orderID = myCarList.count
+                    } else {
+                        carInfo.orderID = Int(data.orderID)
+                    }
                     carInfo.carName = data.carName ?? ""
                     carInfo.carNumber = data.carNumber ?? ""
                     carInfo.typeFuel = data.typeFuel.toTypeFuel()
@@ -70,6 +75,7 @@ class CarInfoDAO {
                     
                     carInfo.objectID = data.objectID
                     myCarList.append(carInfo)
+                    myCarList = myCarList.sorted(by: { $0.orderID < $1.orderID })
                     
                 }
             }
@@ -83,17 +89,17 @@ class CarInfoDAO {
     // MARK: - 2. 데이터 추가
     // 2-1. 차량 추가
     func addCarList(_ data: CarInfo) -> Bool {
-        let object = NSEntityDescription.insertNewObject(forEntityName: "CarInfo", into: context) as! CarInfoMO
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
+        let object = NSEntityDescription.insertNewObject(forEntityName: "CarInfo", into: context) as! CarInfoMO
         object.carName = data.carName
         object.carNumber = data.carNumber
         object.typeFuel = Int16(data.typeFuel.rawValue)
         object.typeShift = Int16(data.typeShift.rawValue)
         object.mileage = Int64(data.mileage)
+        object.orderID = Int16(appDelegate.myCarList.count)
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let recommenItemList = object.typeFuel == 0 ? appDelegate.gasolineItemList : appDelegate.dieselItemList
-        print(recommenItemList)
         for item in recommenItemList {
             let maintenanceObject = NSEntityDescription.insertNewObject(forEntityName: "Maintenance", into: context) as! MaintenanceMO
             maintenanceObject.nameOfItem = item.0
@@ -215,6 +221,24 @@ class CarInfoDAO {
         }
     }
     // 4-2. 차량 순서 수정
+    func modifyCarListOrder(carList: [CarInfo], changedOrder: [Int]) {
+        
+        let reordered = carList
+        for i in reordered {
+            let changedIndex = changedOrder.firstIndex(of: i.orderID)!
+            if let objectID = i.objectID {
+                let object = self.context.object(with: objectID) as! CarInfoMO
+                object.orderID = Int16(changedIndex)
+            }
+        }
+        
+        do {
+            try self.context.save()
+        } catch let e as NSError {
+            NSLog("Error has occured during Change car Reording", e.localizedDescription)
+        }
+        
+    }
     
     // 4-2. 보험 기록 수정
     func modifyInsuranceInfo(InsuranceID: NSManagedObjectID, insurance: Insurance) -> Bool {

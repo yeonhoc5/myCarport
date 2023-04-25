@@ -7,13 +7,8 @@
 
 import UIKit
 
-
-protocol RenewCarList {
-    func renewCarList()
-}
-
 class AddAndEditCarViewController: UIViewController {
-    
+    // MARK: - 1. outlets & properties
     @IBOutlet var lblTitle: UILabel!
     @IBOutlet var btnRegist: UIButton!
     @IBOutlet var btnCancel: UIButton!
@@ -38,26 +33,70 @@ class AddAndEditCarViewController: UIViewController {
     
     lazy var dao = CarInfoDAO()
     
-    //MARK: - view DidLoad & touchsBegan
+    //MARK: - 2. view DidLoad & touchsBegan
     override func viewDidLoad() {
         super.viewDidLoad()
         settingView()
         settingTextFields()
-        self.settingData()
+        settingData()
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        settingData()
+    
+    // MARK: - 3.버튼 Tab actions
+    @IBAction func tapBtnRegist(_ sender: UIButton) {
+        // 등록 화면
+        if carInfo == nil {
+            guard let carNameToAdd: String = tfCarName?.text,
+                  let carNumbToAdd: String = tfCarNumber?.text,
+                  let mileageToAdd: Int = Int((tfMileage?.text == "" ? "0" : tfMileage.text)!) else { return }
+            let carInfo = CarInfo(carName: carNameToAdd,
+                                  carNumber: carNumbToAdd,
+                                  typeFuel: Int16(sgmCarFuel.selectedSegmentIndex).toTypeFuel(),
+                                  typeShift: Int16(sgmCarType.selectedSegmentIndex).toTypeShift(),
+                                  mileage: mileageToAdd)
+            if dao.addCarList(carInfo) {
+                if let count = appDelegate.myCarList.last?.maintenance.count {
+                    delegate.addAnimationCount(count: count + 1)
+                }
+            }
+        } else {
+        // 수정 화면
+            guard let carNameToEdit: String = tfCarName?.text == "" ? tfCarName.placeholder : tfCarName?.text,
+                  let carNumbToEdit: String = tfCarNumber?.text == "" ? tfCarNumber.placeholder : tfCarNumber.placeholder,
+                  let mileageToEdit: Int = Int(tfMileage?.text == "" ? tfMileage.placeholder! : tfMileage.text ?? "0") else { return }
+            let typeFueltoEdit: TypeFuel = sgmCarFuel.selectedSegmentIndex == 0 ? .gasoline : .diesel
+            let typeShiftToEdit: TypeShift = sgmCarType.selectedSegmentIndex == 0 ? .auto : .manual
+            
+            print(carNameToEdit, carNumbToEdit, mileageToEdit, typeFueltoEdit, typeShiftToEdit)
+            let modifiedCarInfo = CarInfo(carName: carNameToEdit, carNumber: carNumbToEdit, typeFuel: typeFueltoEdit, typeShift: typeShiftToEdit, mileage: mileageToEdit)
+            
+            if let carID = carInfo?.objectID {
+                let dao = CarInfoDAO()
+                if dao.modifyCarInfo(carID: carID, carInfo: modifiedCarInfo) {
+                    appDelegate.myCarList = dao.fetch()
+                    delegate2.renewCarList()
+                }
+            }
+        }
+        self.dismiss(animated: true)
     }
     
+    @IBAction func tapBtnCancel(_ sender: UIButton) {
+        self.dismiss(animated: true)
+    }
+
+}
+
+// MARK: - 4. [extension] 뷰 초기 세팅
+extension AddAndEditCarViewController {
+    // 뷰 기본 세팅
     func settingView() {
         lblTitle.text = titleForPage
         tfCarName.becomeFirstResponder()
-        // setting buttons
+        // 버튼 설정
         [btnRegist, btnCancel].forEach {
             $0?.layer.cornerRadius = 10
             $0?.backgroundColor = .systemTeal.withAlphaComponent(0.8)
@@ -65,9 +104,8 @@ class AddAndEditCarViewController: UIViewController {
         }
         btnRegist.setTitle(btnTitle, for: .normal)
         btnRegist.isEnabled = false
-        
     }
-    
+    // 텍스트 필드 설정
     func settingTextFields() {
         tfMileage.keyboardType = .numberPad
         textfields = [tfCarName, tfCarNumber, tfMileage]
@@ -84,7 +122,6 @@ class AddAndEditCarViewController: UIViewController {
         } else {
             Funcs.checkValidation(textFields: [tfCarName, tfCarNumber, tfMileage], btn: btnRegist, type: .any)
         }
-        
     }
     @objc func checkChange() {
         if carInfo != nil {
@@ -97,7 +134,7 @@ class AddAndEditCarViewController: UIViewController {
         }
     }
     
-    
+    // 초기 데이터 설정
     private func settingData() {
         if let carSelected = carInfo {
             tfCarName.placeholder = carSelected.carName
@@ -112,66 +149,4 @@ class AddAndEditCarViewController: UIViewController {
         }
     }
     
-    @IBAction func tapBtnRegist(_ sender: UIButton) {
-        if carInfo == nil {
-            guard let carNameToAdd: String = tfCarName?.text,
-                  let carNumbToAdd: String = tfCarNumber?.text,
-                  let mileageToAdd: Int = Int((tfMileage?.text == "" ? "0" : tfMileage.text)!) else { return }
-            let carInfo = CarInfo(carName: carNameToAdd,
-                                  carNumber: carNumbToAdd,
-                                  typeFuel: Int16(sgmCarFuel.selectedSegmentIndex).toTypeFuel(),
-                                  typeShift: Int16(sgmCarType.selectedSegmentIndex).toTypeShift(),
-                                  mileage: mileageToAdd)
-            if dao.addCarList(carInfo) {
-                if let count = appDelegate.myCarList.last?.maintenance.count {
-                    delegate.addAnimationCount(count: count + 1)
-                }
-                self.dismiss(animated: true)
-            }
-        } else {
-            guard let carNameToEdit: String = tfCarName?.text == "" ? tfCarName.placeholder : tfCarName?.text,
-                  let carNumbToEdit: String = tfCarNumber?.text == "" ? tfCarNumber.placeholder : tfCarNumber.placeholder,
-                  let mileageToEdit: Int = Int(tfMileage?.text == "" ? tfMileage.placeholder! : tfMileage.text ?? "0") else { return }
-            let typeFueltoEdit: TypeFuel = sgmCarFuel.selectedSegmentIndex == 0 ? .gasoline : .diesel
-            let typeShiftToEdit: TypeShift = sgmCarType.selectedSegmentIndex == 0 ? .auto : .manual
-            
-            print(carNameToEdit, carNumbToEdit, mileageToEdit, typeFueltoEdit, typeShiftToEdit)
-            let modifiedCarInfo = CarInfo(carName: carNameToEdit, carNumber: carNumbToEdit, typeFuel: typeFueltoEdit, typeShift: typeShiftToEdit, mileage: mileageToEdit)
-            
-            
-            if let carID = carInfo?.objectID {
-                let dao = CarInfoDAO()
-                if dao.modifyCarInfo(carID: carID, carInfo: modifiedCarInfo) {
-                    appDelegate.myCarList = dao.fetch()
-                    delegate2.renewCarList()
-                }
-            }
-            
-            
-//            appDelegate.carList[indexOfCar].carName = carNameToEdit
-//            appDelegate.carList[indexOfCar].carNumber = carNumbToEdit
-//            appDelegate.carList[indexOfCar].mileage = mileageToEdit
-//            appDelegate.carList[indexOfCar].typeFuel = sgmCarFuel.selectedSegmentIndex == 0 ? .gasoline:.diesel
-//            appDelegate.carList[indexOfCar].typeShift = sgmCarType.selectedSegmentIndex == 0 ? .auto:.manual
-//            delegate2.carList = appDelegate.carList
-            self.dismiss(animated: true)
-        }
-        
-    }
-    
-    @IBAction func tapBtnCancel(_ sender: UIButton) {
-        self.dismiss(animated: true)
-    }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

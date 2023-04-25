@@ -17,7 +17,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
-    func settingCell(name: String) {
+    func settingCell(name: String, background: UIColor) {
         addSubview(lblCarName)
         lblCarName.text = name
         lblCarName.sizeToFit()
@@ -25,6 +25,8 @@ class HomeCollectionViewCell: UICollectionViewCell {
             $0.center.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(12)
         }
+        self.backgroundColor = background
+        self.layer.cornerRadius = 10
     }
     
 }

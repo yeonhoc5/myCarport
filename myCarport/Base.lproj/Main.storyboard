@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hZU-fV-dz9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hZU-fV-dz9">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1245,20 +1245,20 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="206.66666666666666" height="24"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Q8-Ld-uIB">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="24"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="95.666666666666671" height="24"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bg1-lW-KK4">
-                                                                            <rect key="frame" x="92.666666666666657" y="0.0" width="46.333333333333343" height="24"/>
+                                                                            <rect key="frame" x="95.666666666666657" y="0.0" width="45.333333333333343" height="24"/>
                                                                             <state key="normal" title="Button"/>
                                                                             <buttonConfiguration key="configuration" style="plain" title="탈퇴">
                                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                                             </buttonConfiguration>
                                                                         </button>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="45I-7I-hG0">
-                                                                            <rect key="frame" x="138.99999999999997" y="0.0" width="67.666666666666657" height="24"/>
+                                                                            <rect key="frame" x="140.99999999999997" y="0.0" width="65.666666666666657" height="24"/>
                                                                             <state key="normal" title="Button"/>
                                                                             <buttonConfiguration key="configuration" style="plain" title="로그아웃">
                                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
@@ -1330,33 +1330,28 @@
                                     <rect key="frame" x="0.0" y="0.0" width="350" height="62"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CaJ-nL-pee">
-                                            <rect key="frame" x="20" y="11" width="310" height="40"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="라세티" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KyS-W2-Vyp">
-                                                    <rect key="frame" x="0.0" y="0.0" width="213.66666666666666" height="40"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="휘발유 / 오토" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDj-HQ-gOe">
-                                                    <rect key="frame" x="213.66666666666666" y="0.0" width="96.333333333333343" height="40"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="pDj-HQ-gOe" firstAttribute="width" secondItem="KyS-W2-Vyp" secondAttribute="width" multiplier="0.45" id="7Ci-gh-YCg"/>
-                                            </constraints>
-                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="라세티" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KyS-W2-Vyp">
+                                            <rect key="frame" x="15" y="5" width="320" height="52"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="휘발유 / 오토" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDj-HQ-gOe">
+                                            <rect key="frame" x="15" y="5" width="320" height="52"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="CaJ-nL-pee" firstAttribute="leading" secondItem="Gj2-oe-KG7" secondAttribute="leadingMargin" id="W4e-df-HrK"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="CaJ-nL-pee" secondAttribute="trailing" id="aPP-mK-s0A"/>
-                                        <constraint firstItem="CaJ-nL-pee" firstAttribute="centerY" secondItem="Gj2-oe-KG7" secondAttribute="centerY" id="d14-NQ-fSJ"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="CaJ-nL-pee" secondAttribute="bottom" id="eo5-44-OAr"/>
-                                        <constraint firstItem="CaJ-nL-pee" firstAttribute="top" secondItem="Gj2-oe-KG7" secondAttribute="topMargin" id="oRR-iR-N8J"/>
+                                        <constraint firstItem="KyS-W2-Vyp" firstAttribute="top" secondItem="Gj2-oe-KG7" secondAttribute="top" constant="5" id="1YU-xG-kGa"/>
+                                        <constraint firstItem="pDj-HQ-gOe" firstAttribute="top" secondItem="Gj2-oe-KG7" secondAttribute="top" constant="5" id="GB1-Rx-dRg"/>
+                                        <constraint firstItem="KyS-W2-Vyp" firstAttribute="leading" secondItem="Gj2-oe-KG7" secondAttribute="leading" constant="15" id="OUC-xK-3Aq"/>
+                                        <constraint firstAttribute="bottom" secondItem="KyS-W2-Vyp" secondAttribute="bottom" constant="5" id="Sp6-bU-5FV"/>
+                                        <constraint firstAttribute="trailing" secondItem="pDj-HQ-gOe" secondAttribute="trailing" constant="15" id="WfW-MI-8q6"/>
+                                        <constraint firstItem="pDj-HQ-gOe" firstAttribute="leading" secondItem="Gj2-oe-KG7" secondAttribute="leading" constant="15" id="aXh-kg-6WJ"/>
+                                        <constraint firstAttribute="trailing" secondItem="KyS-W2-Vyp" secondAttribute="trailing" constant="15" id="iFd-QF-ORF"/>
+                                        <constraint firstAttribute="bottom" secondItem="pDj-HQ-gOe" secondAttribute="bottom" constant="5" id="tfu-or-B88"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

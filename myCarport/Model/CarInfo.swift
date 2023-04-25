@@ -13,7 +13,7 @@ struct CarInfo: Equatable {
         return lhs.objectID == rhs.objectID
     }
     
-    
+    var orderID: Int = Int()
     var carName = String()
     var carNumber = String()
     var typeFuel = TypeFuel.gasoline

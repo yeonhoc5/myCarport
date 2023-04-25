@@ -261,6 +261,7 @@ extension ItemDetailViewController: UICollectionViewDataSource, UICollectionView
                     $0.textAlignment = .center
                     self.alertTextField = $0
                     $0.inputView = self.pickerDate
+                    self.pickerDate.setDate(history.changeDate, animated: false)
                     let toolbar = UIToolbar()
                     toolbar.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
                     toolbar.backgroundColor = UIColor(red: 66/255, green: 65/255, blue: 78/255, alpha: 1)
@@ -303,6 +304,7 @@ extension ItemDetailViewController: UICollectionViewDataSource, UICollectionView
                                 }
                                 self.collectionView.reloadData()
                                 self.isEditMode = false
+                                self.pickerDate.setDate(Date(), animated: false)
                             }
                         }
                         
@@ -320,12 +322,13 @@ extension ItemDetailViewController: UICollectionViewDataSource, UICollectionView
                         }
                     }
                     self.isEditMode = false
+                    self.pickerDate.setDate(Date(), animated: false)
                     self.dismiss(animated: true)
                 }))
                 alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: {_ in
                     self.isEditMode = false
+                    self.pickerDate.setDate(Date(), animated: false)
                     self.dismiss(animated: true)
-                    
                 }))
                 self.present(alert, animated: true)
             }

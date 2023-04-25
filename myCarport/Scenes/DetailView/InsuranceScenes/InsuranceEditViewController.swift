@@ -8,7 +8,7 @@
 import UIKit
 
 protocol EditInsurance {
-    func editInsurance(type: EditType, index: Int!, insurance: Insurance)
+    func editInsurance(type: EditType, index: Int!, insurance: Insurance!)
 }
         
 class InsuranceEditViewController: UIViewController {
@@ -115,7 +115,9 @@ class InsuranceEditViewController: UIViewController {
         if insurance == nil {
             Funcs.checkValidation(textFields: [tfNameOfCorp], btn: btnRegist)
         } else {
-            Funcs.checkValidation(textFields: [tfNameOfCorp, tfDateStart, tfDateEnd, tfPay, tfMileage], btn: btnRegist, type: .any)
+            Funcs.checkValidation(textFields: [tfNameOfCorp, tfDateStart, tfDateEnd, tfPay, tfMileage],
+                                  btn: btnRegist,
+                                  type: .any)
         }
     }
     func settingStartData() {
@@ -235,7 +237,7 @@ class InsuranceEditViewController: UIViewController {
         if insurance == nil {
             if let carInfo = self.carInfo {
                 if dao.addInsuranceTotheCar(carInfo, insurance: readyInsurance) {
-                    delegate.editInsurance(type: .add, insurance: readyInsurance)
+                    delegate.editInsurance(type: .add)
                 }
             }
         } else {

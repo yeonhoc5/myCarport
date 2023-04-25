@@ -52,10 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                           InsuranceCorp(name: "흥국화재", logo: "heungkuk", callNumber: 16881688)
     ]
                                           
-    
-    var insuranceSite = [
-        "https://m.idbins.com/FMMAIV0001.do",
-    ]
     var myCarList: [CarInfo] = []
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
